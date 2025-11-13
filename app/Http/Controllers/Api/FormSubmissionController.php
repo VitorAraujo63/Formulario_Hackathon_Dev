@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\FormSubmission;
-use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Validator;
 
 class FormSubmissionController
@@ -35,21 +35,18 @@ class FormSubmissionController
         $userAnswers = $request->input('userAnswers');
         $correctAnswers = \Config::get('questions.' . $selectedArea);
 
-        if (!$correctAnswers || count($correctAnswers) != 6)
-        {
+        if (!$correctAnswers || count($correctAnswers) != 6) {
             return response()->json(['error' => 'Configuração do questionário inválida no servidor.'], 500);
         }
 
         $score_facil = 0;
-        $score_media =0;
+        $score_media = 0;
         $score_dificil = 0;
 
         if ($userAnswers[0] == $correctAnswers[0]) $score_facil++;
         if ($userAnswers[1] == $correctAnswers[1]) $score_facil++;
-
         if ($userAnswers[2] == $correctAnswers[2]) $score_media++;
         if ($userAnswers[3] == $correctAnswers[3]) $score_media++;
-
         if ($userAnswers[4] == $correctAnswers[4]) $score_dificil++;
         if ($userAnswers[5] == $correctAnswers[5]) $score_dificil++;
 
@@ -62,8 +59,9 @@ class FormSubmissionController
         if ($score_total >= 5) {
             $nivel = 'Avançado';
         }
+
         try {
-            FormSubmission::create([
+            $submission = FormSubmission::create([
                 'nome' => $formData['nome'],
                 'email' => $formData['email'],
                 'telefone' => $formData['telefone'] ?? null,
@@ -74,10 +72,8 @@ class FormSubmissionController
                 'curso' => $formData['curso'] ?? null,
                 'linkedin' => $formData['linkedin'] ?? null,
                 'sobre' => $formData['sobre'] ?? null,
-       
                 'selected_area' => $selectedArea,
                 'user_answers' => $userAnswers,
-
                 'score_total' => $score_total,
                 'score_facil' => $score_facil,
                 'score_media' => $score_media,
@@ -85,8 +81,16 @@ class FormSubmissionController
                 'calculated_level' => $nivel,
             ]);
 
+            // N8N Webhook
+            Http::post('http://host.docker.internal:5678/webhook/hackathon-inscricao', [
+                'telefone' => $formData['telefone'],
+            ]);
+
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Não foi possível salvar a resposta. Verifique se este email já foi usado.', 'details' => $e->getMessage()], 400);
+            return response()->json([
+                'error' => 'Não foi possível salvar a resposta',
+                'details' => $e->getMessage()
+            ], 400);
         }
 
         return response()->json(['message' => 'Respostas salvas com sucesso!'], 201);

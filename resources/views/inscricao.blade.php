@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevMenthors - Formulário de Inscrição</title>
+@extends('layouts.app')
+
+@section('content')
     <link rel="stylesheet" href="css/inscricao.css">
-</head>
 <body>
     <div id="thankYouScreen" class="thank-you-screen" style="display: none;">
         <div class="thank-you-content">
@@ -21,7 +17,7 @@
             <div class="header">
             <div class="logo">
                     <div class="logo-icon">
-                      <img src="{{ asset('img/Logo_Hackathon.png') }}" alt="" class="logo" />
+                      <img src="{{ asset('img/logo.ico') }}" alt="" class="logo" />
                     </div>
             </div>
                 <span class="logo-text">DevMenthors</span>
@@ -212,3 +208,4 @@
     <script src="js/inscricao.js"></script>
 </body>
 </html>
+@endsection

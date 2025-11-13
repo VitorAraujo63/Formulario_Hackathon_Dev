@@ -1,0 +1,104 @@
+{
+    "name": "Hackathon - Inscrições e Envio de Mensagens",
+    "nodes": [
+      {
+        "parameters": {
+          "path": "hackathon-inscricao",
+          "method": "POST"
+        },
+        "id": "1",
+        "name": "Webhook Inscrição",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [250, 300]
+      },
+      {
+        "parameters": {
+          "resource": "record",
+          "operation": "create",
+          "dataStoreId": "hackathon-inscricao",
+          "fields": {
+            "telefone": "={{ $json[\"telefone\"] }}"
+          }
+        },
+        "id": "2",
+        "name": "Salvar Telefone no Data Store",
+        "type": "n8n-nodes-base.dataStore",
+        "typeVersion": 1,
+        "position": [550, 300]
+      },
+      {
+        "parameters": {
+          "path": "hackathon-send",
+          "method": "POST"
+        },
+        "id": "3",
+        "name": "Webhook Enviar Mensagem",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [250, 600]
+      },
+      {
+        "parameters": {
+          "resource": "record",
+          "operation": "getAll",
+          "dataStoreId": "hackathon-inscricao"
+        },
+        "id": "4",
+        "name": "Buscar Telefones do Data Store",
+        "type": "n8n-nodes-base.dataStore",
+        "typeVersion": 1,
+        "position": [550, 600]
+      },
+      {
+        "parameters": {
+          "url": "https://meu-webhook-de-envio.com",
+          "method": "POST",
+          "jsonParameters": true,
+          "options": {},
+          "bodyParametersJson": "={\"telefone\": $json[\"fields\"][\"telefone\"], \"mensagem\": $json[\"mensagem\"]}"
+        },
+        "id": "5",
+        "name": "Enviar Mensagem WhatsApp",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [850, 600]
+      },
+      {
+        "parameters": {
+          "functionCode": "return items.map(item => ({ json: { mensagem: $json[\"body\"][\"mensagem\"], telefone: item.json.fields.telefone } }));"
+        },
+        "id": "6",
+        "name": "Montar Mensagens",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [700, 600]
+      }
+    ],
+    "connections": {
+      "Webhook Inscrição": {
+        "main": [
+          [{ "node": "Salvar Telefone no Data Store", "type": "main", "index": 0 }]
+        ]
+      },
+      "Webhook Enviar Mensagem": {
+        "main": [
+          [{ "node": "Buscar Telefones do Data Store", "type": "main", "index": 0 }]
+        ]
+      },
+      "Buscar Telefones do Data Store": {
+        "main": [
+          [{ "node": "Montar Mensagens", "type": "main", "index": 0 }]
+        ]
+      },
+      "Montar Mensagens": {
+        "main": [
+          [{ "node": "Enviar Mensagem WhatsApp", "type": "main", "index": 0 }]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {},
+    "versionId": "1"
+  }
+  

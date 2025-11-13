@@ -6,11 +6,11 @@
     <img src="{{ asset('img/preto.png') }}" alt="" class="img-preto">
 
     <nav class="navbar">
-        <img src="{{ asset('img/Logo_Hackathon.png') }}" alt="">
+        <img src="{{ asset('img/logo.ico') }}" alt="">
     </nav>
 
     <div class="vagas">
-        <div class="vagas-box">700 Vagas disponíveis</div>
+        <div class="vagas-box">300 Vagas disponíveis</div>
     </div>
 
     <main class="main">
@@ -33,7 +33,7 @@
                 </p>
 
                 <p>
-                    Serão dois dias intensos, nos dias <span class="azul negrito">22 e 23 de Novembro</span>,
+                    Serão dois dias intensos, nos dias <span class="azul negrito">29 e 30 de Novembro</span>,
                     onde você vai se juntar a uma equipe de pessoas com a mesma paixão por inovação. O desafio é grande,
                     mas a recompensa é ainda maior: desenvolver uma solução inovadora para resolver um problema real da
                     nossa sociedade.
