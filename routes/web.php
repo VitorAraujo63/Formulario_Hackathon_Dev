@@ -43,7 +43,7 @@ Route::get('/admin/export', function () {
 
 
 Route::get('/', function () {
-    return 'Laravel funcionando';
+    return view('welcome');
 });
 
 Route::get('/hackathon', function () {
@@ -53,5 +53,3 @@ Route::get('/hackathon', function () {
 Route::get('/inscricao', function () {
     return view('inscricao');
 })->name('inscricao');
-
-Route::post('/devmenthors/store', [DevMenthorsController::class, 'store'])->name('devmenthors.store');
