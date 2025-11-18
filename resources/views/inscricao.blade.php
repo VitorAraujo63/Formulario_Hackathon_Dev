@@ -17,7 +17,7 @@
             <div class="header">
             <div class="logo">
                     <div class="logo-icon">
-                      <img src="{{ asset('img/logo.ico') }}" alt="" class="logo" />
+                      <img src="{{ asset('img/parceiros/5.png') }}" alt="" class="logo" />
                     </div>
             </div>
                 <span class="logo-text">DevMenthors</span>

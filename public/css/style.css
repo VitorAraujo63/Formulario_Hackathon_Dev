@@ -1,142 +1,231 @@
 body {
-        font-family: Arial, sans-serif;
-        background-color: #f9fafb;
-        margin: 0;
-        padding: 0;
-    }
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+}
 
-    .container {
-        position: relative;
-        min-height: 100vh;
-        overflow: hidden;
-    }
+.container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden; /* Esconde o overflow no desktop */
+}
 
-    .img-azul {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 24rem;
-        object-fit: contain;
-        z-index: 1;
-    }
+.img-azul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24rem;
+    object-fit: contain;
+    z-index: 1;
+}
 
-    .img-preto {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 24rem;
-        object-fit: contain;
-        z-index: 1;
-    }
+.img-preto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 24rem;
+    object-fit: contain;
+    z-index: 1;
+}
 
-    .navbar {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        position: relative;
-        z-index: 10;
-        padding: 1rem 0;
-    }
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    padding: 1rem 0;
+}
 
-    .navbar img {
-        height: 4rem;
-        width: auto;
-        margin-left: 2rem;
-    }
+.navbar img {
+    height: 6rem;
+    width: auto;
+    margin-left: 2rem;
+}
 
-    .vagas {
-        position: absolute;
-        top: 1rem;
-        right: 1.5rem;
-        z-index: 10;
-    }
+.vagas {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 10;
+}
 
-    .vagas-box {
-        background: #374151;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        font-weight: 500;
-    }
+.vagas-box {
+    background: #374151;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 
+.main {
+    max-width: 900px;
+    margin-left: 10rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.bem-vindo {
+    color: #4b5563;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.titulo {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.azul {
+    color: #2563eb;
+}
+
+.cinza {
+    color: #1f2937;
+}
+
+.texto {
+    margin-top: 1.5rem;
+    color: #374151;
+    line-height: 1.7;
+}
+
+.negrito {
+    font-weight: 600;
+}
+
+.destaque {
+    font-weight: bold;
+    color: #111827;
+    margin-top: 1rem;
+}
+
+.botoes {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.btn-primario {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primario:hover {
+    background: #1e40af;
+}
+
+.btn-secundario {
+    background: #374151;
+    color: white;
+}
+
+.btn-secundario:hover {
+    background: #1f2937;
+}
+
+
+/* ---------------------------------- */
+/* --- CSS RESPONSIVO ADICIONADO --- */
+/* ---------------------------------- */
+
+/* Para Tablets (ex: iPads na vertical) */
+@media (max-width: 960px) {
     .main {
-        max-width: 900px;
-        margin-left: 10rem;
-        margin-top: 4rem;
-        padding: 2rem;
-        position: relative;
-        z-index: 10;
+        /* Centraliza o conteúdo principal em vez de usar margem fixa */
+        margin: 4rem auto 0 auto;
+        padding: 1.5rem;
+        max-width: 90%; /* Ocupa 90% da largura */
     }
 
-    .bem-vindo {
-        color: #4b5563;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+    .img-azul,
+    .img-preto {
+        height: 20rem; /* Diminui um pouco as ondas */
     }
 
     .titulo {
-        font-size: 3rem;
-        font-weight: bold;
+        font-size: 2.5rem; /* Diminui o título */
+    }
+}
+
+/* Para Celulares (ex: iPhones, Galaxys) */
+@media (max-width: 600px) {
+    .container {
+        overflow-y: auto; /* Permite rolagem vertical no celular */
     }
 
-    .azul {
-        color: #2563eb;
+    .img-azul {
+        height: 15rem; /* Diminui drasticamente a onda azul */
     }
 
-    .cinza {
-        color: #1f2937;
+    .img-preto {
+        display: none; /* Esconde a onda preta para economizar espaço */
+    }
+
+    .navbar img {
+        height: 3.5rem;
+        margin-left: 1rem; /* Diminui a margem do logo */
+    }
+
+    .vagas {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+
+    .vagas-box {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .main {
+        /* Remove o max-width e centraliza com margens laterais */
+        max-width: none;
+        margin: 2rem 1rem 0 1rem;
+        padding: 1rem;
+        text-align: center; /* Centraliza o texto no mobile */
+    }
+
+    .titulo {
+        font-size: 2rem; /* Diminui o título */
+    }
+
+    .bem-vindo {
+        font-size: 1rem;
     }
 
     .texto {
-        margin-top: 1.5rem;
-        color: #374151;
-        line-height: 1.7;
-    }
-
-    .negrito {
-        font-weight: 600;
+        font-size: 0.95rem;
+        text-align: left; /* Mantém o texto justificado/à esquerda */
     }
 
     .destaque {
-        font-weight: bold;
-        color: #111827;
-        margin-top: 1rem;
+        text-align: center;
     }
 
-    /* Este é o CSS dos botões que você perguntou antes.
-      Agora ele vai funcionar!
-    */
     .botoes {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
+        flex-direction: column; /* Empilha os botões */
+        gap: 0.75rem;
+        align-items: center; /* Centraliza os botões empilhados */
     }
 
     .btn {
-        padding: 0.8rem 2rem;
-        font-size: 1.1rem;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: 0.2s;
-        cursor: pointer;
+        width: 100%; /* Faz os botões ocuparem 100% da largura */
+        text-align: center;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
     }
-
-    .btn-primario {
-        background: #2563eb;
-        color: white;
-    }
-
-    .btn-primario:hover {
-        background: #1e40af;
-    }
-
-    .btn-secundario {
-        background: #374151;
-        color: white;
-    }
-
-    .btn-secundario:hover {
-        background: #1f2937;
-    }
+}

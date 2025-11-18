@@ -6,7 +6,7 @@
     <img src="{{ asset('img/preto.png') }}" alt="" class="img-preto">
 
     <nav class="navbar">
-        <img src="{{ asset('img/logo.ico') }}" alt="">
+        <img src="{{ asset('img/parceiros/4.png') }}" alt="">
     </nav>
 
     <div class="vagas">

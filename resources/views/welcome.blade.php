@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevMenthors Clone</title>
+    <title>DevMenthors</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ asset('img/logos/1.png') }}" type="image/x-icon">
     <style>
         /* --- Reset e Estilos Globais --- */
         * {
@@ -46,28 +47,28 @@
         .wave {
             position: absolute;
             top: 0;
-            z-index: 1; 
-            height: 76%; /* Ocupa a altura total do hero */
-            width: auto; /* Mantém a proporção da imagem */
-            object-fit: contain; /* Ajusta a imagem dentro do contêiner sem cortar */
+            z-index: 1;
+            height: 76%;
+            width: auto;
+            object-fit: contain;
         }
 
         .wave-left {
             left: 0;
-            top: auto; 
+            top: auto;
             bottom: 0;
         }
 
         .wave-right {
             right: 0;
             top: auto;
-            bottom: 0; 
+            bottom: 0;
         }
 
         /* --- Navbar (Cabeçalho) --- */
         .navbar {
             position: relative;
-            z-index: 2; 
+            z-index: 2;
             padding: 30px 0;
         }
 
@@ -78,10 +79,19 @@
         }
 
         .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: #222;
+            /* font-size: 24px; */ /* Removido */
+            /* font-weight: 700; */ /* Removido */
+            /* color: #222; */ /* Removido */
             text-decoration: none;
+            /* Adicionado para garantir alinhamento vertical */
+            display: flex;
+            align-items: center;
+        }
+
+        /* NOVO: Estilo para a imagem dentro do logo */
+        .logo-text img {
+            height: 90px; /* Defina a altura desejada para o seu logo */
+            width: auto;
         }
 
         .nav-links {
@@ -132,7 +142,7 @@
             margin-bottom: 25px;
             color: #222;
         }
-        
+
         .hero-content h1 .text-blue {
             color: #2563EB;
         }
@@ -149,9 +159,9 @@
             background-color: #2563EB;
             color: #ffffff;
             text-decoration: none;
-            padding: 16px 32px;
+            padding: 12px 24px;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
@@ -173,7 +183,7 @@
         }
 
         .tracks-section h2 span {
-            color: #2563EB; 
+            color: #2563EB;
         }
 
         .tracks-section .section-subtitle {
@@ -193,7 +203,7 @@
             flex: 1.2;
         }
 
-        .tracks-image .placeholder-image { 
+        .tracks-image .placeholder-image {
             width: 100%;
             height: 400px;
             background: #e0e0e0;
@@ -204,6 +214,13 @@
             color: #888;
             font-family: sans-serif;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ajuste para a imagem do dashboard */
+        .tracks-image .placeholder-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
 
         .tracks-list {
@@ -219,7 +236,7 @@
             gap: 20px;
             margin-bottom: 25px;
         }
-        
+
         .track-item:last-child {
             margin-bottom: 0;
         }
@@ -227,7 +244,7 @@
         .track-icon {
             width: 50px;
             height: 50px;
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
         .track-icon .placeholder-icon {
             width: 100%;
@@ -309,7 +326,7 @@
             color: #888;
             font-family: sans-serif;
         }
-        
+
         /* ----------------------------------
          NOVOS ESTILOS (FEEDBACKS)
         ----------------------------------
@@ -337,7 +354,7 @@
             padding: 24px;
             border-radius: 8px;
             /* Sombra suave como no design */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         .feedback-author {
@@ -364,7 +381,7 @@
             line-height: 1.6;
             color: #555;
         }
-        
+
         /* ----------------------------------
          NOVOS ESTILOS (PARCEIROS)
         ----------------------------------
@@ -389,7 +406,7 @@
         }
 
         .partners-logos img {
-            max-height: 60px; /* Controla a altura dos logos */
+            max-height: 150px; /* CORRIGIDO: Altura máxima */
             width: auto;
             object-fit: contain;
             filter: grayscale(100%); /* Logos em cinza */
@@ -401,7 +418,7 @@
             filter: grayscale(0%);
             opacity: 1;
         }
-        
+
         /* ----------------------------------
          NOVOS ESTILOS (FAQ)
         ----------------------------------
@@ -478,51 +495,66 @@
         }
 
         /* ----------------------------------
-         NOVOS ESTILOS (RODAPÉ)
+         ESTILOS (RODAPÉ) - CORREÇÃO FINAL
         ----------------------------------
         */
         .main-footer {
-            background-color: #fff; /* Fundo escuro do rodapé */
+            /* 1. Fundo azul e texto branco */
+            background-color: #fff;
             color: #222;
-            padding-top: 120px; /* Espaço para as ondas */
+
+            /* 2. Posição relativa para ancorar as ondas */
             position: relative;
-            overflow: hidden;
+
+            /* 3. MARGEM no topo para criar espaço para as ondas "vazarem" */
+            margin-top: 100px;
+
+            /* 4. Padding interno para o CONTEÚDO (logo, links, etc.) */
+            padding-top: 60px;
+            padding-bottom: 0; /* O footer-bottom vai cuidar do espaçamento inferior */
+
+            /* 5. A CORREÇÃO MAIS IMPORTANTE:
+               overflow: visible permite que as ondas "saiam" para cima. */
+            overflow: visible;
+
             text-align: left;
         }
 
         .footer-wave {
             position: absolute;
-            top: 0;
-            height: 150px; /* Altura da imagem da onda */
-            width: auto;
-            object-fit: contain;
-            z-index: 0; /* Fica por baixo do conteúdo */
+            top: 0; /* Alinha ao topo do .main-footer (que tem a margem) */
+
+            /* 6. CORREÇÃO DE TAMANHO: */
+            width: auto; /* Usa o tamanho natural da imagem */
+            max-height: 180px; /* Controla a altura máxima (ajuste se necessário) */
+
+            /* 7. CORREÇÃO DE POSIÇÃO: */
+            transform: translateY(-50%);
+
+            z-index: 1; /* Fica acima da seção anterior, mas abaixo do .footer-content */
         }
 
         .footer-wave-left {
             left: 0;
-            transform: translateY(-50%); /* Ajuste para posicionar a onda na parte superior */
         }
 
         .footer-wave-right {
             right: 0;
-            transform: translateY(-50%); /* Ajuste para posicionar a onda na parte superior */
         }
 
         .footer-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Alinha os itens ao topo */
-            flex-wrap: wrap; /* Permite quebrar linha em telas menores */
-            padding-bottom: 60px;
-            position: relative; /* Para z-index */
-            z-index: 1; /* Garante que o conteúdo fique acima das ondas */
+            align-items: flex-start;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2; /* Garante que o conteúdo fique ACIMA das ondas */
         }
 
         .footer-col {
             flex: 1;
-            min-width: 180px; /* Garante que as colunas não fiquem muito pequenas */
-            margin-bottom: 30px; /* Espaçamento entre colunas em telas menores */
+            min-width: 180px;
+            margin-bottom: 30px;
         }
 
         .footer-logo {
@@ -531,6 +563,7 @@
             margin-bottom: 20px;
         }
 
+        /* Cores corretas (brancas) para o texto */
         .footer-col h4 {
             font-size: 18px;
             font-weight: 700;
@@ -559,7 +592,7 @@
         }
 
         .footer-col ul li a:hover {
-            color: #2563EB; /* Cor de destaque ao passar o mouse */
+            color: #111;
         }
 
         .social-icons {
@@ -568,115 +601,63 @@
             margin-top: 10px;
         }
 
+        /* Ícones sociais (agora estiliza o <a> e o <img> dentro) */
         .social-icon-placeholder {
             width: 40px;
             height: 40px;
-            background-color: #555; /* Cor de fundo para o placeholder */
+            background-color: #ccc;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
             font-size: 20px;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            overflow: hidden; /* Garante que a imagem fique dentro do círculo */
+        }
+
+        .social-icon-placeholder img {
+            width: 60%; /* Tamanho do ícone dentro do círculo */
+            height: 60%;
+            object-fit: contain;
         }
 
         .social-icon-placeholder:hover {
-            background-color: #2563EB; /* Cor de destaque ao passar o mouse */
+            background-color: #e0e0e0;
         }
 
         .footer-bottom {
-            background-color: #1a1a1a; /* Fundo mais escuro para o copyright */
+            background-color: #1a1a1a;
             padding: 20px 0;
             text-align: center;
             font-size: 13px;
             color: #888;
-        }
-
-        /* --- Media Queries (Responsivo para o Rodapé) --- */
-        @media (max-width: 768px) {
-            .main-footer {
-                padding-top: 80px; /* Menos espaço para ondas no mobile */
-                text-align: center;
-            }
-
-            .footer-wave {
-                height: 100px; /* Ondas menores no mobile */
-                transform: translateY(-30%);
-            }
-
-            .footer-content {
-                flex-direction: column; /* Empilha as colunas */
-                align-items: center;
-                padding-bottom: 40px;
-            }
-
-            .footer-col {
-                min-width: unset; /* Remove min-width */
-                width: 100%; /* Ocupa largura total */
-                margin-bottom: 30px;
-            }
-            .footer-col:first-child, /* Coluna do logo */
-            .footer-col:nth-child(2) { /* Coluna de contato */
-                text-align: center;
-            }
-
-            .footer-col ul {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .social-icons {
-                justify-content: center; /* Centraliza ícones sociais */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-footer {
-                padding-top: 60px;
-            }
-            .footer-wave {
-                height: 80px;
-            }
-            .footer-logo {
-                max-width: 120px;
-            }
-            .footer-col h4 {
-                font-size: 16px;
-                margin-bottom: 15px;
-            }
-            .footer-col p,
-            .footer-col ul li,
-            .social-icon-placeholder {
-                font-size: 14px;
-            }
-            .social-icon-placeholder {
-                width: 35px;
-                height: 35px;
-            }
+            position: relative;
+            z-index: 2;
         }
 
 
         /* ---------------------------------- */
         /* --- Media Queries (Responsivo) --- */
         /* ---------------------------------- */
-        @media (max-width: 992px) { /* Tablets e desktops menores */
-            .wave {
+
+        /* Tablets e desktops menores */
+        @media (max-width: 992px) {
+            .wave { /* Onda do Hero */
                 height: 80%;
                 transform: translateY(30%);
             }
         }
 
-        @media (max-width: 768px) { /* Tablets na vertical e celulares */
+        /* Tablets na vertical e celulares */
+        @media (max-width: 768px) {
             .hero {
-                height: auto; 
-                min-height: 70vh; 
+                height: auto;
+                min-height: 70vh;
                 padding-bottom: 60px;
             }
 
-            .wave {
+            .wave { /* Onda do Hero */
                 display: none;
             }
 
@@ -686,11 +667,11 @@
             }
 
             .nav-links {
-                flex-direction: column; 
+                flex-direction: column;
                 gap: 10px;
             }
             .nav-link, .nav-button {
-                margin: 0; 
+                margin: 0;
             }
 
             .hero-content {
@@ -700,7 +681,7 @@
             }
 
             .hero-content h1 {
-                font-size: 38px; 
+                font-size: 38px;
                 line-height: 1.2;
                 margin-bottom: 15px;
             }
@@ -729,7 +710,7 @@
             }
 
             .tracks-image .placeholder-image {
-                height: 250px; 
+                height: 250px;
             }
 
             .content-section {
@@ -742,7 +723,7 @@
             }
 
             .content-split.reverse {
-                flex-direction: column; 
+                flex-direction: column;
             }
 
             .text-content h2 {
@@ -757,7 +738,7 @@
             .image-placeholder {
                 height: 200px;
             }
-            
+
             /* --- NOVOS ESTILOS RESPONSIVOS --- */
             .feedbacks-section,
             .partners-section,
@@ -778,7 +759,7 @@
                 grid-template-columns: 1fr; /* Empilha os feedbacks */
                 gap: 20px;
             }
-            
+
             .partners-logos {
                 gap: 30px;
             }
@@ -794,10 +775,48 @@
                 padding: 0 15px 15px 15px;
                 font-size: 14px;
             }
-            /* --- FIM DOS NOVOS ESTILOS --- */
+
+            /* --- RODAPÉ RESPONSIVO --- */
+            .main-footer {
+                margin-top: 80px;
+                padding-top: 60px;
+                text-align: center;
+            }
+
+            .footer-wave {
+                max-height: 120px;
+                transform: translateY(-50%);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 40px;
+            }
+
+            .footer-col {
+                min-width: unset;
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            .footer-col:first-child,
+            .footer-col:nth-child(2) {
+                text-align: center;
+            }
+
+            .footer-col ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
         }
 
-        @media (max-width: 480px) { /* Celulares menores */
+        /* Celulares menores */
+        @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 32px;
             }
@@ -808,8 +827,8 @@
                 padding: 12px 24px;
                 font-size: 14px;
             }
-            .logo-text {
-                font-size: 20px;
+            .logo-text img {
+                height: 60px; /* Altura um pouco menor no mobile */
             }
 
             /* --- NOVOS ESTILOS RESPONSIVOS --- */
@@ -831,7 +850,30 @@
             .feedback-card p {
                 font-size: 13px;
             }
-            /* --- FIM DOS NOVOS ESTILOS --- */
+
+            /* --- RODAPÉ RESPONSIVO --- */
+            .main-footer {
+                margin-top: 60px;
+            }
+            .footer-wave {
+                max-height: 100px;
+            }
+            .footer-logo {
+                max-width: 120px;
+            }
+            .footer-col h4 {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            .footer-col p,
+            .footer-col ul li,
+            .social-icon-placeholder {
+                font-size: 14px;
+            }
+            .social-icon-placeholder {
+                width: 35px;
+                height: 35px;
+            }
         }
 
     </style>
@@ -844,21 +886,21 @@
 
         <header class="navbar">
             <div class="container">
-                <a href="/" class="logo-text">DevMenthors</a>
+                <a href="/" class="logo-text"><img src="{{ asset('img/logos/2.png') }}" alt=""></a>
                 <nav class="nav-links">
                     <a href="#" class="nav-link">Entrar</a>
-                    <a href="/hackathon" class="nav-button">Hackathon</a>
+                    <a href="/hackhealth" class="nav-button">HackHealth</a>
                 </nav>
             </div>
         </header>
 
         <div class="hero-content">
-            <h1>DevMenthors, <br> 
-                <span class="text-blue">transformando o futuro</span> <br> 
+            <h1>DevMenthors, <br>
+                <span class="text-blue">transformando o futuro</span> <br>
                 <span class="text-blue">uma geração por vez.</span>
             </h1>
             <p>Vá além de código! Junte-se a nós e aprenda, gratuitamente, sobre programação, hard e soft skills, e empreendedorismo. Conte com o apoio de mentores que entendem a sua jornada.</p>
-            <a href="#" class="cta-button">Faça parte!</a>
+            <a href="/registrar" class="cta-button">Faça parte!</a>
         </div>
     </section>
 
@@ -871,7 +913,8 @@
 
                 <div class="tracks-content">
                     <div class="tracks-image">
-                        <div class="placeholder-image">Imagem do Dashboard (560x400)</div>
+                        <!-- Imagem do Dashboard com largura corrigida -->
+                        <div class="placeholder-image"><img src="{{ asset('img/dashboard.png') }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
                     </div>
 
                     <div class="tracks-list">
@@ -909,16 +952,16 @@
             </div>
         </section>
 
-        <section class="content-section" style="background-color: #f8f9fa;">
+        <section class="content-section" style="background-color: #f8f9fa;" id="sobre">
             <div class="container">
                 <div class="content-split">
                     <div class="text-content">
                         <h2>O que é o DevMenthors</h2>
                         <p>O DevMenthors nasceu em 2022 para capacitar jovens com habilidades técnicas (hard skills) e interpessoais (soft skills). Nosso foco vai além da tecnologia: ajudamos você a desenvolver liderança, comunicação e trabalho em equipe, preparando-o para os desafios do mercado. Aqui, formamos profissionais completos e prontos para brilhar!</p>
                     </div>
-                    <div class="image-placeholder">
+                   <!-- <div class="image-placeholder">
                         <p>Placeholder Imagem</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -930,41 +973,35 @@
                         <h2>Como o Dev Funciona</h2>
                         <p>No DevMenthors, você aprende fazendo! Com treinamentos em HTML, CSS, JavaScript, PHP e Laravel, jovens desenvolvem projetos reais com o apoio de mentores. Além das habilidades técnicas, também oferecem soft skills como liderança e trabalho em equipe. Quem se destaca vira mentor e ajuda a próxima geração de devs. Junte-se ao ciclo de aprendizado e crescimento!</p>
                     </div>
-                    <div class="image-placeholder">
+                   <!-- <div class="image-placeholder">
                         <p>Placeholder Imagem</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
-        
-        <section class="feedbacks-section">
+
+        <section class="feedbacks-section" id="feedbacks">
             <div class="container">
                 <h2 class="section-title-left">Feedbacks</h2>
                 <div class="feedbacks-grid">
                     <div class="feedback-card">
                         <div class="feedback-author">
-                            <img src="{{ asset('img/avatar-enzo.png') }}" alt="Enzo Takaku">
+                            <img src="{{ asset('img/enzo.png') }}" alt="Enzo Takaku">
                             <h3>Enzo Takaku</h3>
                         </div>
                         <p>O DevMenthor pra mim foi uma chave que abriu minha mente, eu não queria trabalhar na área de programação, mas decidi entrar pra ver como era e me interessei muito em programar e aprender sempre mais, quando já havia se passado um ano e começamos a dar aulas para outros alunos, vi que o Dev poderia abrir a mente de mais pessoas como eu.</p>
                     </div>
                     <div class="feedback-card">
                         <div class="feedback-author">
-                            <img src="{{ asset('img/avatar-marcos.png') }}" alt="Marcos Gabriel">
+                            <img src="{{ asset('img/marcos.png') }}" alt="Marcos Gabriel">
                             <h3>Marcos Gabriel</h3>
                         </div>
                         <p>Para mim, o Dev foi algo que mudou minha perspectiva de como é a dinâmica de estudos, abrange a programação e aprendizagem que com todas as envolvidos no projeto Devs... Desenvolvi Hard e Soft Skills que hoje fazem parte de quem eu sou e me ajudam a me destacar onde eu vou.</p>
                     </div>
+
                     <div class="feedback-card">
                         <div class="feedback-author">
-                            <img src="{{ asset('img/avatar-victor.png') }}" alt="Victor Hugo">
-                            <h3>Victor Hugo</h3>
-                        </div>
-                        <p>Durante minha trajetória no DevMenthors, tive a oportunidade de aprender e estudar sobre diversas tecnologias, como Docker, Node.js e Flutter, áreas nas quais hoje tenho mais dedicação e familiaridade. Esse processo de evolução constante me levou a ser promovido a mentor, uma posição que me permitiu colaborar com alunos excepcionais.</p>
-                    </div>
-                    <div class="feedback-card">
-                        <div class="feedback-author">
-                            <img src="{{ asset('img/avatar-julio.png') }}" alt="Julio Gabriel">
+                            <img src="{{ asset('img/julio_gabriel.png') }}" alt="Julio Gabriel">
                             <h3>Julio Gabriel</h3>
                         </div>
                         <p>O Dev foi um verdadeiro divisor de águas para mim, contribuindo não apenas no aprendizado, mas também em muitos outros aspectos da minha vida. Hoje, toda a base que tenho em programação foi construída graças ao Dev.</p>
@@ -972,20 +1009,21 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="partners-section">
             <div class="container">
                 <h2 class="section-title-center">Nossos Parceiros</h2>
                 <div class="partners-logos">
-                    <img src="{{ asset('img/logo-unimar.png') }}" alt="Logo Unimar">
-                    <img src="{{ asset('img/logo-etec.png') }}" alt="Logo Etec">
-                    <img src="{{ asset('img/logo-cps.png') }}" alt="Logo Centro Paula Souza">
-                    <img src="{{ asset('img/logo-sebrae.png') }}" alt="Logo Sebrae for Startups">
+                    <img src="{{ asset('img/parceiros/hbu.png') }}" alt="Logo HBU">
+                    <img src="{{ asset('img/parceiros/prefeitura_marilia2.png') }}" alt="Logo Prefeitura Marília">
+                    <img src="{{ asset('img/parceiros/unimagem.png') }}" alt="Logo Unimagem">
+                    <img src="{{ asset('img/parceiros/unimar_blue.png') }}" alt="Logo Unimar">
+                    <img src="{{ asset('img/parceiros/unimed.png') }}" alt="Logo Unimed">
                 </div>
             </div>
         </section>
 
-        <section class="faq-section">
+        <section class="faq-section" id="faq">
             <div class="container">
                 <div class="faq-header">
                     <h2>Dev responde</h2>
@@ -1029,33 +1067,37 @@
     </main>
 
     <footer class="main-footer">
+        <!-- As imagens do rodapé foram removidas do HTML,
+             pois serão controladas pelo CSS de fundo
+             para um posicionamento perfeito.
+        -->
 
         <div class="container footer-content">
             <div class="footer-col logo-col">
                 <img src="{{ asset('img/logo_rodape.png') }}" alt="Logo DevMenthors" class="footer-logo">
             </div>
-            
+
             <div class="footer-col">
                 <h4>Contato</h4>
-                <p>contato@devmenthors.com</p>
+                <p>administracao@devmenthors.com.br</p>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Links</h4>
                 <ul>
-                    <li><a href="#">Sobre nós</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Feedbacks</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#sobre">Sobre nós</a></li>
+                    <li><a href="/hackhealth">HackHealth</a></li>
+                    <li><a href="#feedbacks">Feedbacks</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Nossas Redes</h4>
                 <div class="social-icons">
-                    <a href="#" class="social-icon-placeholder"></a>
-                    <a href="#" class="social-icon-placeholder"></a>
-                    <a href="#" class="social-icon-placeholder"></a>
+                    <a href="https://instagram.com/devmenthors" class="social-icon-placeholder"><img src="{{ asset('img/social/instagram.png') }}" alt="Instagram"></a>
+                    <a href="mailto:administracao@devmenthors.com.br" class="social-icon-placeholder"><img src="{{ asset('img/social/email.png') }}" alt="Email"></a>
+                    <!-- Placeholder vazio removido -->
                 </div>
             </div>
         </div>

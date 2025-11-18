@@ -47,6 +47,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/registrar', function () {
+    return view('vagas');
+});
+
 Route::get('/hackhealth', function () {
     return view('hackathon');
 });
