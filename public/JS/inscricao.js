@@ -1,4 +1,36 @@
+const estados = [
+  
+];
 
+const telefoneInput = document.getElementById("telefone");
+
+telefoneInput.addEventListener("input", function (e) {
+  let value = e.target.value.replace(/\D/g, "");
+
+  if (value.length > 11) {
+      value = value.slice(0, 11);
+  }
+
+  value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+  value = value.replace(/(\d{5})(\d)/, "$1-$2");
+
+  e.target.value = value;
+});
+
+const cidadeInput = document.getElementById("cidade");
+
+cidadeInput.addEventListener("input", function (e) {
+  e.target.value = e.target.value.replace(/[0-9]/g, "");
+});
+
+const estadoSelect = document.getElementById("estado");
+
+estados.forEach(uf => {
+  const option = document.createElement("option");
+  option.value = uf;
+  option.textContent = uf;
+  estadoSelect.appendChild(option);
+});
 
 const technicalQuestions = {
   "Front-End": {
@@ -559,10 +591,12 @@ btnNext.addEventListener("click", async (e) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/submit-quiz', payload);
       console.log(response.data.message);
-      mainContainer.style.display = "none"
-      thankYouScreen.style.display = "flex"
+      thankYouScreen.style.display = "flex";
+      mainContainer.style.display = "none";
+      return;
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
+      console.log("ERROR MESSAGE:", error.response?.data || error.message);
       if (error.response && error.response.data && error.response.data.errors) {
         alert("Erro de validação: " + JSON.stringify(error.response.data.errors));
       } else if (error.response && error.response.data && error.response.data.error) {
@@ -574,7 +608,7 @@ btnNext.addEventListener("click", async (e) => {
   } else if (validateTab(formState.activeTab) && currentIndex < tabs.length - 1) {
     changeTab(tabs[currentIndex + 1].id)
   }
-})
+})  
 
 btnQuestionBack.addEventListener("click", () => {
   if (formState.currentQuestionIndex > 0) {

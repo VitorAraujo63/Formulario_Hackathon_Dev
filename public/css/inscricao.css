@@ -253,6 +253,12 @@ body {
   min-height: 100px;
 }
 
+.form-row .form-group.small {
+  flex: 0 0 250px; /* tamanho fixo */
+}
+
+
+
 /* Form Actions */
 .form-actions {
   display: flex;
@@ -897,3 +903,4 @@ body {
     font-size: 0.9375rem;
   }
 }
+

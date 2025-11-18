@@ -549,6 +549,16 @@
             flex-wrap: wrap;
             position: relative;
             z-index: 2; /* Garante que o conteúdo fique ACIMA das ondas */
+            gap: 100px
+            column-gap: 40px;
+        }
+
+        .footer-col:not(:first-child) {
+            margin-left: -30px; /* aproxima as 3 colunas da logo */
+        }
+
+        .footer-col:nth-child(4) {
+            margin-left: -170px; /* só essa coluna chega mais perto */
         }
 
         .footer-col {
@@ -577,7 +587,7 @@
             color: #222;
             line-height: 1.6;
         }
-
+        
         .footer-col ul {
             list-style: none;
             padding: 0;

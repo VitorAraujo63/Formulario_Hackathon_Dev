@@ -5,10 +5,14 @@
 <body>
     <div id="thankYouScreen" class="thank-you-screen" style="display: none;">
         <div class="thank-you-content">
-            <svg class="thank-you-icon" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <svg class="thank-you-icon" ...></svg>
             <h1>Obrigado!</h1>
             <p class="thank-you-subtitle">Sua inscrição foi enviada com sucesso.</p>
             <p class="thank-you-message">Boa sorte no DevMenthors HackHealth!</p>
+
+            <a href="{{ url('/') }}" class="btn-voltar-site">
+                Voltar para o Site
+            </a>
         </div>
     </div>
 
@@ -61,13 +65,13 @@
                         <div class="form-section">
                             <div class="form-group">
                                 <label for="nome">Nome completo</label>
-                                <input type="text" id="nome" name="nome" required>
+                                <input type="text" id="nome" name="nome" maxlength="80" required>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
-                                    <input type="email" id="email" name="email" required>
+                                    <input type="email" id="email" name="email" required maxlength="50">
                                 </div>
                                 <div class="form-group">
                                     <label for="telefone">Telefone (Whatsapp)</label>
@@ -93,19 +97,49 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group">
+                                <div class="form-group small">
                                     <label for="estado">Estado</label>
-                                    <input type="text" id="estado" name="estado" required>
+                                    <select id="estado" name="estado" required>
+                                        <option value="">Selecione</option>
+                                        <option value="Acre">AC - Acre</option>
+                                        <option value="Alagoas">AL - Alagoas</option>
+                                        <option value="Amapá">AP - Amapá</option>
+                                        <option value="Amazonas">AM - Amazonas</option>
+                                        <option value="Bahia">BA - Bahia</option>
+                                        <option value="Ceará">CE - Ceará</option>
+                                        <option value="Distrito Federal">DF - Distrito Federal</option>
+                                        <option value="Espírito Santo">ES - Espírito Santo</option>
+                                        <option value="Goiás">GO - Goiás</option>
+                                        <option value="Maranhão">MA - Maranhão</option>
+                                        <option value="Mato Grosso">MT - Mato Grosso</option>
+                                        <option value="Mato Grosso do Sul">MS - Mato Grosso do Sul</option>
+                                        <option value="Minas Gerais">MG - Minas Gerais</option>
+                                        <option value="Pará">PA - Pará</option>
+                                        <option value="Paraíba">PB - Paraíba</option>
+                                        <option value="Paraná">PR - Paraná</option>
+                                        <option value="Pernambuco">PE - Pernambuco</option>
+                                        <option value="Piauí">PI - Piauí</option>
+                                        <option value="Rio de Janeiro">RJ - Rio de Janeiro</option>
+                                        <option value="Rio Grande do Norte">RN - Rio Grande do Norte</option>
+                                        <option value="Rio Grande do Sul">RS - Rio Grande do Sul</option>
+                                        <option value="Rondônia">RO - Rondônia</option>
+                                        <option value="Roraima">RR - Roraima</option>
+                                        <option value="Santa Catarina">SC - Santa Catarina</option>
+                                        <option value="São Paulo">SP - São Paulo</option>
+                                        <option value="Sergipe">SE - Sergipe</option>
+                                        <option value="Tocantins">TO - Tocantins</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="cidade">Cidade</label>
-                                    <input type="text" id="cidade" name="cidade" required>
+                                    <input type="text" id="cidade" name="cidade" maxlength="50" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="curso">Curso/Área de Formação</label>
-                                <input type="text" id="curso" name="curso" required>
+                                <input type="text" id="curso" name="curso" maxlength="60" required>
                             </div>
 
                             <div class="form-group">
