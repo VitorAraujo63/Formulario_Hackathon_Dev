@@ -72,3 +72,18 @@ Route::get('/inscricao', function () {
 Route::get('hackathon/mentor/cadastrar', [HacktonMentores::class, 'create'])->name('hackathon.mentor.create');
 
 Route::post('hackathon/mentor/cadastrar', [HacktonMentores::class, 'store'])->name('hackathon.mentor.store');
+
+Route::prefix('admin/mentores')->group(function () {
+
+    // Painel de Gestão (Chama o seu arquivo gestao_mentores_hackhealth.blade.php)
+    Route::get('/', [HacktonMentores::class, 'index'])
+        ->name('hackathon.mentor.index');
+
+    // Download do Excel
+    Route::get('/export', [HacktonMentores::class, 'export'])
+        ->name('hackathon.mentor.export');
+
+    // Upload do Excel
+    Route::post('/import', [HacktonMentores::class, 'import'])
+        ->name('hackathon.mentor.import');
+});

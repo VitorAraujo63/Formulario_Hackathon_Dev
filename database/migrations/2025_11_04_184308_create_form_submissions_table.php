@@ -23,21 +23,14 @@ return new class extends Migration
             $table->string('cidade')->nullable();
             $table->string('curso')->nullable();
             $table->string('linkedin')->nullable();
-
-            // ALTERAÇÃO 1: Mudado de string (255 chars) para text (para suportar textos longos)
-            $table->text('sobre')->nullable();
+            $table->string('sobre')->nullable();
 
             $table->string('selected_area');
-
-            // JSON é perfeito para user_answers, certifique-se que seu banco é MySQL 5.7+ ou MariaDB 10.2+
             $table->json('user_answers');
 
             $table->integer('score_total');
             $table->integer('score_facil');
-
-            // ALTERAÇÃO 2: Mudado de score_media para score_medio para bater com o export do Excel em web.php
-            $table->integer('score_medio');
-
+            $table->integer('score_media');
             $table->integer('score_dificil');
             $table->string('calculated_level');
 
