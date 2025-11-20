@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api; // <--- 1. Namespace correto (pasta Api)
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller; // <--- 2. IMPORTANTE: Importa o Controller pai
+use Illuminate\Routing\Controller;
 use App\Models\FormSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +21,11 @@ class FormSubmissionController extends Controller
         // 2. VALIDAÇÃO
         $validator = Validator::make($request->all(), [
             'formData.nome' => 'required|string|max:255',
-            'formData.email' => 'required|email|max:255',
+
+            // ALTERAÇÃO AQUI: Adicionado |unique:form_submissions,email
+            // Isso impede o erro 500 e retorna um erro amigável para o front-end
+            'formData.email' => 'required|email|max:255|unique:form_submissions,email',
+
             'formData.telefone' => 'required|string|max:20',
             'formData.nascimento' => 'required|date',
             'formData.sexo' => 'required|string',
@@ -32,6 +36,9 @@ class FormSubmissionController extends Controller
             'formData.sobre' => 'nullable|string',
             'selectedArea' => 'required|string',
             'userAnswers' => 'required|array|size:6',
+        ], [
+            // Mensagens personalizadas (Opcional)
+            'formData.email.unique' => 'Este e-mail já realizou a inscrição.'
         ]);
 
         if ($validator->fails()) {
@@ -43,20 +50,18 @@ class FormSubmissionController extends Controller
             $selectedArea = $request->input('selectedArea');
             $userAnswers = $request->input('userAnswers');
 
-            // Carrega gabarito
             $correctAnswers = Config::get('questions.' . $selectedArea);
 
             if (!$correctAnswers) {
-                throw new \Exception("Gabarito não encontrado no arquivo config/questions.php para a área: " . $selectedArea);
+                Log::error("Gabarito ausente em config/questions.php para: " . $selectedArea);
+                throw new \Exception("Erro de configuração: Área não encontrada no gabarito.");
             }
 
             $score_facil = 0;
             $score_medio_calc = 0;
             $score_dificil = 0;
 
-            // Lógica de correção segura
             for ($i = 0; $i < 6; $i++) {
-                // Verifica se as respostas existem e batem com o gabarito
                 if (isset($userAnswers[$i]) && isset($correctAnswers[$i]) && $userAnswers[$i] == $correctAnswers[$i]) {
                     if ($i < 2) $score_facil++;
                     elseif ($i < 4) $score_medio_calc++;

@@ -7,42 +7,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\FormularioHackthon;
 use App\Http\Controllers\HacktonMentores;
-
-Route::get('/admin/dashboard/excel', [AdminDashboardController::class, 'index']);
-
-// Rota para exportação
-Route::get('/admin/export', function () {
-    $submissions = FormSubmission::select(
-        'nome',
-        'email',
-        'telefone',
-        'selected_area',
-        'score_total',
-        'score_facil',
-        'score_dificil',
-        'calculated_level',
-        'created_at'
-    )->get();
-
-    // Renomeando colunas para o excel
-    $list_to_export = $submissions->map(function ($item){
-        return [
-            'Nome' => $item->nome,
-            'Email' => $item->email,
-            'Telefone' => $item->telefone,
-            'Área de interesse' => $item->selected_area,
-            'Acertos (Total)' => $item->score_total,
-            'Acertos (Fácil)' => $item->score_facil,
-            'Acertos (Médio)' => $item->score_medio,
-            'Acertos (Difícil)' => $item->score_dificil,
-            'Nível Calculado' => $item->calculated_level,
-            'Data de envio' => $item->created_at->format('d/m/Y H:i'),
-        ];
-    });
-
-    return (new FastExcel($list_to_export))->download('resultados_hackathon_niveis.xlsx');
-});
-
+use App\Http\Controllers\MentorAuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,17 +38,48 @@ Route::get('hackathon/mentor/cadastrar', [HacktonMentores::class, 'create'])->na
 
 Route::post('hackathon/mentor/cadastrar', [HacktonMentores::class, 'store'])->name('hackathon.mentor.store');
 
-Route::prefix('admin/mentores')->group(function () {
 
-    // Painel de Gestão (Chama o seu arquivo gestao_mentores_hackhealth.blade.php)
-    Route::get('/', [HacktonMentores::class, 'index'])
-        ->name('hackathon.mentor.index');
+Route::get('/admin/login', [MentorAuthController::class, 'showLoginForm'])
+    ->name('mentor.login');
 
-    // Download do Excel
-    Route::get('/export', [HacktonMentores::class, 'export'])
-        ->name('hackathon.mentor.export');
+// Processar Login
+Route::post('/admin/login', [MentorAuthController::class, 'login'])
+    ->name('mentor.login.post');
 
-    // Upload do Excel
-    Route::post('/import', [HacktonMentores::class, 'import'])
-        ->name('hackathon.mentor.import');
+// Sair (Logout)
+Route::get('/admin/logout', [MentorAuthController::class, 'logout'])
+    ->name('mentor.logout');
+
+
+Route::middleware(['auth:mentor'])->prefix('admin')->group(function () {
+
+    // Dashboard Principal
+    // Carrega a view: resources/views/mentor/dashboard.blade.php
+    Route::get('/', function () {
+        return view('mentor.dashboard');
+    })->name('mentor.dashboard');
+
+
+    // --- Grupo de Gestão (Prefixo: /admin/mentores) ---
+    Route::prefix('mentores')->group(function () {
+
+        // 1. Gerenciamento de Mentores
+        Route::get('/', [HacktonMentores::class, 'index'])
+            ->name('hackathon.mentor.index'); // Lista HTML
+
+        Route::get('/export', [HacktonMentores::class, 'export'])
+            ->name('hackathon.mentor.export'); // Baixar Excel
+
+        Route::post('/import', [HacktonMentores::class, 'import'])
+            ->name('hackathon.mentor.import'); // Upload Excel
+
+
+        // 2. Gerenciamento de Inscrições (Quiz dos Candidatos)
+        Route::get('/inscricoes', [AdminDashboardController::class, 'index'])
+            ->name('hackathon.mentor.inscricoes'); // Lista HTML
+
+        Route::get('/inscricoes/export', [AdminDashboardController::class, 'export'])
+            ->name('hackathon.inscricoes.export'); // Baixar Excel
+    });
+
 });

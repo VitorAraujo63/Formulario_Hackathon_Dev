@@ -40,7 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // The 'mentor' guard must be INSIDE this array
+        'mentor' => [
+            'driver' => 'session',
+            'provider' => 'mentores',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -63,6 +70,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'mentores' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mentor::class, // Aponta para o Model que criamos
         ],
 
         // 'users' => [

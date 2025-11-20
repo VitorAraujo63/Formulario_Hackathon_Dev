@@ -589,7 +589,7 @@ btnNext.addEventListener("click", async (e) => {
     console.log("Enviando payload:", payload);
 
     try {
-      const response = await axios.post('http://localhost/api/submit-quiz', payload);
+      const response = await axios.post(API_SUBMIT_URL, payload);
       console.log(response.data.message);
       thankYouScreen.style.display = "flex";
       mainContainer.style.display = "none";

@@ -173,6 +173,11 @@
             <p style="color: #6b7280; font-size: 0.9rem;">Total de cadastros: <strong>{{ $mentores->count() }}</strong></p>
         </div>
         <div class="header-actions">
+            <button class="btn btn-outline">
+                <a href="{{ route('hackathon.mentor.inscricoes') }}" class="btn btn-success" style="background:#222">
+                Alunos Inscritos
+                </a>
+            </button>
             <button class="btn btn-outline" onclick="toggleUpload()">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                 Importar Excel
