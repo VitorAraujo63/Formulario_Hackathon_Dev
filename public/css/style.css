@@ -8,8 +8,10 @@ body {
 .container {
     position: relative;
     min-height: 100vh;
-    overflow: hidden; /* Esconde o overflow no desktop */
+    overflow: hidden;
 }
+
+/* Removido o @keyframes spin */
 
 .img-azul {
     position: absolute;
@@ -60,13 +62,26 @@ body {
     font-weight: 500;
 }
 
-.main {
-    max-width: 900px;
+/* ---------------------------------- */
+/* --- LAYOUT PRINCIPAL (DESKTOP) --- */
+/* ---------------------------------- */
+
+.main-layout {
+    display: flex;
+    max-width: 1400px;
     margin-left: 10rem;
     margin-top: 4rem;
-    padding: 2rem;
+    padding: 0 2rem;
     position: relative;
     z-index: 10;
+    gap: 3rem;
+}
+
+.main {
+    max-width: 900px;
+    width: 65%;
+    padding: 2rem 0;
+    margin: 0;
 }
 
 .bem-vindo {
@@ -138,94 +153,150 @@ body {
     background: #1f2937;
 }
 
+/* ---------------------------------- */
+/* --- ESTILOS DA SIDEBAR PARCEIROS --- */
+/* ---------------------------------- */
+
+.partners-sidebar {
+    width: 35%;
+    padding-top: 2rem;
+}
+
+.section-title-center {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.partners-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+}
+
+.partners-logos img {
+    height: 11rem;
+    width: auto;
+    object-fit: contain;
+    transition: 0.3s;
+}
+
+
 
 /* ---------------------------------- */
-/* --- CSS RESPONSIVO ADICIONADO --- */
+/* --- CSS RESPONSIVO: CARROSSEL --- */
 /* ---------------------------------- */
 
-/* Para Tablets (ex: iPads na vertical) */
+/* Para Tablets (max-width: 960px) e Mobile (max-width: 600px) */
 @media (max-width: 960px) {
-    .main {
-        /* Centraliza o conteúdo principal em vez de usar margem fixa */
+    .main-layout {
+        flex-direction: column;
         margin: 4rem auto 0 auto;
-        padding: 1.5rem;
-        max-width: 90%; /* Ocupa 90% da largura */
+        padding: 0 1.5rem;
+        max-width: 90%;
+        gap: 0;
+    }
+
+    .main {
+        width: 100%;
+        padding: 1.5rem 0;
+    }
+
+    .partners-sidebar {
+        width: 100%;
+        padding: 1rem 0;
+        margin-top: 2rem;
+        /* Reordena para ficar antes do texto principal (em cima) */
+        order: -1;
+        border-bottom: 1px solid #e5e7eb; /* Adiciona linha abaixo do carrossel */
     }
 
     .img-azul,
     .img-preto {
-        height: 20rem; /* Diminui um pouco as ondas */
+        height: 20rem;
     }
 
     .titulo {
-        font-size: 2.5rem; /* Diminui o título */
+        font-size: 2.5rem;
+    }
+
+    /* Configuração do contêiner do carrossel */
+    .carousel-container {
+        display: flex;
+        overflow-x: scroll; /* Permite rolagem horizontal */
+        -webkit-overflow-scrolling: touch; /* Suaviza a rolagem em iOS */
+        scroll-snap-type: x mandatory; /* Faz o scroll "parar" nas imagens */
+        padding-bottom: 10px; /* Espaço para a barra de rolagem não cortar a imagem */
+    }
+
+    /* Esconde a barra de rolagem em alguns navegadores */
+    .carousel-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* O elemento que contém as imagens, garante que não quebre a linha */
+    .carousel-track {
+        display: flex;
+        flex-wrap: nowrap; /* Impede quebras de linha */
+        align-items: center;
+        gap: 2rem;
+        padding: 0 10px; /* Padding nas laterais */
+    }
+
+    .partners-logos img {
+        flex-shrink: 0; /* Impede que a imagem encolha */
+        width: auto;
+        height: 5.5rem; /* Ajuste o tamanho para tablets */
+        scroll-snap-align: center; /* Centraliza a imagem no carrossel */
+        filter: grayscale(0%); /* Remove o filtro de cinza */
+        opacity: 1;
     }
 }
 
-/* Para Celulares (ex: iPhones, Galaxys) */
+/* Ajustes Finais para Celulares (max-width: 600px) */
 @media (max-width: 600px) {
-    .container {
-        overflow-y: auto; /* Permite rolagem vertical no celular */
-    }
+    /* Mantém a estrutura de carrossel de 960px, apenas com ajustes de margem e tamanho */
 
-    .img-azul {
-        height: 15rem; /* Diminui drasticamente a onda azul */
-    }
-
-    .img-preto {
-        display: none; /* Esconde a onda preta para economizar espaço */
-    }
-
-    .navbar img {
-        height: 3.5rem;
-        margin-left: 1rem; /* Diminui a margem do logo */
-    }
-
-    .vagas {
-        top: 0.5rem;
-        right: 0.5rem;
-    }
-
-    .vagas-box {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+    .main-layout {
+        max-width: none;
+        margin: 2rem 1rem 5rem 1rem;
+        padding: 0;
     }
 
     .main {
-        /* Remove o max-width e centraliza com margens laterais */
-        max-width: none;
-        margin: 2rem 1rem 0 1rem;
-        padding: 1rem;
-        text-align: center; /* Centraliza o texto no mobile */
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .partners-sidebar {
+        margin-top: 1rem;
+    }
+
+    .partners-logos img {
+        height: 3.5rem; /* Tamanho final para mobile */
     }
 
     .titulo {
-        font-size: 2rem; /* Diminui o título */
-    }
-
-    .bem-vindo {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
     .texto {
         font-size: 0.95rem;
-        text-align: left; /* Mantém o texto justificado/à esquerda */
-    }
-
-    .destaque {
-        text-align: center;
+        text-align: left;
     }
 
     .botoes {
-        flex-direction: column; /* Empilha os botões */
-        gap: 0.75rem;
-        align-items: center; /* Centraliza os botões empilhados */
+        flex-direction: column;
+        align-items: center;
     }
 
     .btn {
-        width: 100%; /* Faz os botões ocuparem 100% da largura */
-        text-align: center;
-        padding: 0.75rem 1rem;
+        width: 100%;
         font-size: 1rem;
     }
 }

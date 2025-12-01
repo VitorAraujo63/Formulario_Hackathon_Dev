@@ -60,11 +60,15 @@
 
         .logo-icon {
             /* Placeholder para o logo, você pode usar um <img> aqui */
-            width: 2rem;
-            height: 2rem;
+            width: 4rem;
+            height: 4rem;
             font-size: 1.5rem;
             font-weight: bold;
             color: #2563eb;
+        }
+
+        .logo-icon img{
+            width: 50px;
         }
 
         .logo-text {
@@ -543,7 +547,7 @@
         <div class="header">
             <div class="logo">
                 <!-- Use um <img> ou um ícone aqui -->
-                <span class="logo-icon">D</span>
+                <span class="logo-icon"><img src="{{ asset('img/parceiros/5.png') }}" alt=""></span>
             </div>
             <div>
                 <div class="logo-text">Cadastro de Mentor</div>
@@ -606,7 +610,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="especialidade">Principal Especialidade</label>
+                            <label for="especialidade">Principais Especialidade</label>
                             <input type="text" id="especialidade" name="especialidade" value="{{ old('especialidade') }}">
                             @error('especialidade') <div class="error">{{ $message }}</div> @enderror
                         </div>

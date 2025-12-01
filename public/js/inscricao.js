@@ -1,5 +1,5 @@
 const estados = [
-  
+
 ];
 
 const telefoneInput = document.getElementById("telefone");
@@ -589,7 +589,7 @@ btnNext.addEventListener("click", async (e) => {
     console.log("Enviando payload:", payload);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/submit-quiz', payload);
+      const response = await axios.post(API_SUBMIT_URL, payload);
       console.log(response.data.message);
       thankYouScreen.style.display = "flex";
       mainContainer.style.display = "none";
@@ -608,7 +608,7 @@ btnNext.addEventListener("click", async (e) => {
   } else if (validateTab(formState.activeTab) && currentIndex < tabs.length - 1) {
     changeTab(tabs[currentIndex + 1].id)
   }
-})  
+})
 
 btnQuestionBack.addEventListener("click", () => {
   if (formState.currentQuestionIndex > 0) {

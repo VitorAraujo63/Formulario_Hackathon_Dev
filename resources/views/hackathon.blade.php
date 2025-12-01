@@ -6,13 +6,20 @@
     <img src="{{ asset('img/preto.png') }}" alt="" class="img-preto">
 
     <nav class="navbar">
-        <img src="{{ asset('img/parceiros/4.png') }}" alt="">
+        <a href="{{ url('/') }}"><img src="{{ asset('img/parceiros/4.png') }}" alt=""></a>
     </nav>
 
     <div class="vagas">
-        <div class="vagas-box">300 Vagas disponíveis</div>
+        {{-- Lógica para exibir contador ou mensagem de esgotado --}}
+        <div class="vagas-box {{ $vagasRestantes <= 0 ? 'esgotado' : '' }}">
+            @if($vagasRestantes > 0)
+                {{ $vagasRestantes }} Vagas disponíveis
+            @else
+                Vagas Esgotadas!
+            @endif
+        </div>
     </div>
-
+<div class="main-layout">
     <main class="main">
         <div class="conteudo">
             <div>
@@ -55,10 +62,32 @@
 
 
             <div class="botoes">
-                <a href="{{ route('inscricao') }}" class="btn btn-primario">Inscrever-se</a>
+                {{-- Lógica para remover o botão de inscrição se as vagas acabarem --}}
+                @if($vagasRestantes > 0)
+                    <a href="{{ route('inscricao') }}" class="btn btn-primario">Inscrever-se</a>
+                @else
+                    <button class="btn btn-secundario" disabled style="cursor: not-allowed; opacity: 0.8; background:rgb(205, 8, 8); color:#fff;">Inscrições Encerradas</button>
+                @endif
+
                 <a href="#" class="btn btn-secundario">Regulamento</a>
             </div>
         </div>
     </main>
+
+    {{-- 💡 SIDEBAR DOS PARCEIROS --}}
+        <section class="partners-sidebar">
+            <h2 class="section-title-center">Nossos Parceiros</h2>
+            <div class="partners-logos carousel-container">
+                <div class="carousel-track">
+                    <img src="{{ asset('img/parceiros/hbu.png') }}" alt="Logo HBU">
+                    <img src="{{ asset('img/parceiros/prefeitura_marilia2.png') }}" alt="Logo Prefeitura Marília">
+                    <img src="{{ asset('img/parceiros/unimagem.png') }}" alt="Logo Unimagem">
+                    <img src="{{ asset('img/parceiros/unimar_blue.png') }}" alt="Logo Unimar">
+                    <img src="{{ asset('img/parceiros/unimed.png') }}" alt="Logo Unimed">
+                </div>
+            </div>
+        </section>
+    {{-- FIM DO SIDEBAR --}}
+</div>
 </div>
 @endsection

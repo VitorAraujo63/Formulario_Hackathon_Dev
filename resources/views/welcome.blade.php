@@ -587,7 +587,7 @@
             color: #222;
             line-height: 1.6;
         }
-        
+
         .footer-col ul {
             list-style: none;
             padding: 0;
@@ -1020,18 +1020,7 @@
             </div>
         </section>
 
-        <section class="partners-section">
-            <div class="container">
-                <h2 class="section-title-center">Nossos Parceiros</h2>
-                <div class="partners-logos">
-                    <img src="{{ asset('img/parceiros/hbu.png') }}" alt="Logo HBU">
-                    <img src="{{ asset('img/parceiros/prefeitura_marilia2.png') }}" alt="Logo Prefeitura Marília">
-                    <img src="{{ asset('img/parceiros/unimagem.png') }}" alt="Logo Unimagem">
-                    <img src="{{ asset('img/parceiros/unimar_blue.png') }}" alt="Logo Unimar">
-                    <img src="{{ asset('img/parceiros/unimed.png') }}" alt="Logo Unimed">
-                </div>
-            </div>
-        </section>
+        
 
         <section class="faq-section" id="faq">
             <div class="container">

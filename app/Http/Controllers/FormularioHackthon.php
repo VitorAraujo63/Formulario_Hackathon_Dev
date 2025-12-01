@@ -2,63 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FormSubmission;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class FormularioHackthon extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $limiteVagas = 300;
+
+        // Verifica se já atingiu o limite ANTES de validar ou salvar qualquer coisa
+        if (FormSubmission::count() >= $limiteVagas) {
+            return redirect()
+                ->route('home') // Redireciona para a home
+                ->with('error', 'Infelizmente as vagas se esgotaram!');
+        }
+
+        // ... O resto do seu código de validação e criação de usuário continua aqui ...
+
+        // User::create([...]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function index()
     {
-        //
-    }
+        // 1. Configuração do limite
+        $limiteVagas = 300;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // 2. Contagem atual do banco de dados
+        $totalInscritos = FormSubmission::count();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // 3. Cálculo das vagas restantes (não deixa ficar negativo)
+        $vagasRestantes = max(0, $limiteVagas - $totalInscritos);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // 4. Retorna a view 'hackathon' enviando a variável necessária
+        // O nome 'hackathon' aqui deve corresponder ao nome do arquivo: resources/views/hackathon.blade.php
+        return view('hackathon', compact('vagasRestantes'));
     }
 }
