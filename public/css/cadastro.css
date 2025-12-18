@@ -1,0 +1,954 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+    background-color: #ffffff;
+    background-image: url('../img/Component6.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; /* Garante que a imagem esteja centralizada */
+  
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  
+  .container {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+  
+  .form-wrapper {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .logo {
+    width: 6rem;
+    height: auto;
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo-icon {
+    width: 7rem;
+    height: 7rem;
+    background: white;
+    border-radius: 0.2rem;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .logo-subtitle {
+    font-size: 0.875rem;
+    color: #2563eb;
+    margin-left: 0.25rem;
+  }
+  
+  .navigation {
+    max-width: 100%;
+    margin: 0 auto 2rem;
+  }
+  
+  .nav-icons {
+    display: flex;
+  
+    /* CORREÇÃO:
+      Ativado 'space-between' para espaçar os ícones
+      de forma flexível em toda a largura.
+    */
+    justify-content: space-between;
+  
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* CORREÇÃO:
+    Esta regra com 'margin-left' fixo foi removida
+    pois impedia a responsividade.
+  */
+  /* .nav-icons .nav-icon:nth-child(n+2) {
+    margin-left: 31.5rem;
+  }
+  */
+  
+  .nav-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-icon.active,
+  .nav-icon.completed {
+    background: #2563eb;
+    color: white;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 0.5rem;
+    background: #e5e7eb;
+    border-radius: 9999px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #2563eb;
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+    width: 12.5%;
+  }
+  
+  .nav-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .nav-label {
+    flex: 1;
+    max-width: 200px;
+    text-align: left;
+  }
+  
+  .nav-label-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0;
+  }
+  
+  
+  .nav-label-title.active {
+    color: #1f2937;
+  }
+  
+  .nav-label-status {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  .nav-label-status.in-progress {
+    color: #2563eb;
+  }
+  
+  .nav-label-status.completed {
+    color: #6b7280;
+  }
+  
+  /* Form */
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  
+  .form-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-section-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #1f2937;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+  
+  .form-group textarea {
+    resize: none;
+    min-height: 100px;
+  }
+  
+  .form-row .form-group.small {
+    flex: 0 0 250px; /* tamanho fixo */
+  }
+  
+  
+  
+  /* Form Actions */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .btn-back,
+  .btn-next {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+  
+  .btn-back {
+    background: transparent;
+    color: #374151;
+    border: 1px solid #d1d5db;
+  }
+  
+  .btn-back:hover {
+    background: #f9fafb;
+  }
+  
+  .btn-next {
+    background: #334155;
+    color: white;
+    margin-left: auto;
+  }
+  
+  .btn-next:hover {
+    background: #1e293b;
+  }
+  
+  .btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Area Selection */
+  .area-selection {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .area-selection h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .area-description {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+  
+  .area-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .area-option {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .area-option:hover {
+    border-color: #93c5fd;
+  }
+  
+  .area-option input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .area-option input[type="radio"]:checked ~ .area-option-content {
+    color: #2563eb;
+  }
+  
+  .area-option:has(input[type="radio"]:checked) {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+  
+  .area-option-content {
+    flex: 1;
+  }
+  
+  .area-option-title {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+  }
+  
+  .area-option-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  /* Questions Section */
+  .questions-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .questions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .questions-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  
+  .question-counter {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  
+  .question-progress-bar {
+    width: 100%;
+    height: 0.5rem;
+    background: #e5e7eb;
+    border-radius: 9999px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  
+  .question-progress-fill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  
+  .question-content {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 0.75rem;
+  }
+  
+  .question-level {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+  
+  .question-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+  }
+  
+  .question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .question-option {
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .question-option:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+  
+  .question-option.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+  
+  .question-option.selected .question-option-letter {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+  }
+  
+  .question-option-letter {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  
+  .question-option-text {
+    color: #1f2937;
+  }
+  
+  .question-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .btn-question-back,
+  .btn-question-next {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+  
+  .btn-question-back {
+    background: transparent;
+    color: #374151;
+    border: 1px solid #d1d5db;
+  }
+  
+  .btn-question-back:hover {
+    background: #f9fafb;
+  }
+  
+  .btn-question-next {
+    background: #2563eb;
+    color: white;
+    margin-left: auto;
+  }
+  
+  .btn-question-next:hover {
+    background: #1d4ed8;
+  }
+  
+  .btn-question-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Thank You Screen */
+  .thank-you-screen {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .thank-you-content {
+    max-width: 600px;
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .thank-you-icon {
+    color: #10b981;
+    margin: 0 auto 1.5rem;
+  }
+  
+  .thank-you-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+  
+  .thank-you-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  }
+  
+  .thank-you-message {
+    font-size: 1.125rem;
+    color: #9ca3af;
+  }
+  
+  /* Responsive */
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .form-grid-two {
+      grid-template-columns: 1fr;
+    }
+  
+    .questions-container {
+      max-width: 100%;
+    }
+  
+    .area-selection {
+      max-width: 100%;
+    }
+  
+    /* CORREÇÃO:
+      Garante que os ícones da barra de navegação
+      não usem 'gap' em telas de tablet,
+      mantendo o 'space-between'.
+    */
+    .nav-icons {
+      gap: 0;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    body {
+      padding: 1rem 0.5rem;
+    }
+  
+    .form-wrapper {
+      padding: 1.5rem 1rem;
+      border-radius: 0.75rem;
+    }
+  
+    /* Header */
+    .header {
+      margin-bottom: 1.5rem;
+    }
+  
+    .logo-rodape {
+      max-width: 200px; /* Tamanho máximo da imagem */
+      width: 100%;      /* Garante responsividade */
+      height: auto;     /* Mantém a proporção correta */
+      margin-top: 20px; /* Um espacinho do texto acima */
+      display: inline-block;
+    }
+
+    .logo {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  
+    .logo-text {
+      font-size: 1.125rem;
+    }
+  
+    .logo-subtitle {
+      font-size: 0.75rem;
+    }
+  
+    /* Navigation */
+    .navigation {
+      margin-bottom: 1.5rem;
+    }
+  
+    .nav-icons {
+      /* CORREÇÃO:
+        Em telas pequenas, 'space-between' ainda é melhor
+        para alinhar o primeiro e o último item nas bordas.
+        O 'gap' foi removido para evitar conflito.
+      */
+      gap: 0;
+    }
+  
+    .nav-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 0.875rem;
+    }
+  
+    .nav-labels {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+  
+      /* CORREÇÃO:
+        'space-between' ainda é necessário para
+        alinhar "Inscrição" e "Finalizado"
+      */
+      justify-content: space-between;
+    }
+  
+    .nav-label {
+      max-width: 150px;
+      /* CORREÇÃO:
+        Remove o 'flex: 1' para que os labels
+        não cresçam e se sobreponham.
+      */
+      flex: 0 1 auto;
+    }
+  
+    /* CORREÇÃO:
+      Garante que o último label
+      fique alinhado à direita.
+    */
+    .nav-label:last-child {
+      text-align: right;
+    }
+  
+    .nav-label-title {
+      font-size: 0.75rem;
+    }
+  
+    .nav-label-status {
+      font-size: 0.625rem;
+    }
+  
+    /* Form */
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  
+    .form-section {
+      gap: 1rem;
+    }
+  
+    .form-group label {
+      font-size: 0.8125rem;
+    }
+  
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.625rem;
+      font-size: 0.9375rem;
+    }
+  
+    /* Form Actions */
+    .form-actions {
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+  
+    .btn-back,
+    .btn-next {
+      width: 100%;
+      justify-content: center;
+      padding: 0.875rem 1.5rem;
+    }
+  
+    .btn-next {
+      margin-left: 0;
+    }
+  
+    /* Area Selection */
+    .area-selection h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+  
+    .area-description {
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .area-option {
+      padding: 0.875rem;
+    }
+  
+    .area-option-title {
+      font-size: 0.9375rem;
+    }
+  
+    .area-option-description {
+      font-size: 0.8125rem;
+    }
+  
+    /* Questions */
+    .questions-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    .questions-header h2 {
+      font-size: 1.25rem;
+    }
+  
+    .question-counter {
+      font-size: 0.8125rem;
+    }
+  
+    .question-progress-bar {
+      margin-bottom: 1.5rem;
+    }
+  
+    .question-content {
+      padding: 1.5rem 1rem;
+    }
+  
+    .question-level {
+      font-size: 0.8125rem;
+    }
+  
+    .question-text {
+      font-size: 1.125rem;
+      margin-bottom: 1.25rem;
+    }
+  
+    .question-options {
+      gap: 0.625rem;
+    }
+  
+    .question-option {
+      padding: 0.875rem;
+    }
+  
+    .question-option-letter {
+      width: 1.25rem;
+      height: 1.25rem;
+      font-size: 0.8125rem;
+    }
+  
+    .question-option-text {
+      font-size: 0.9375rem;
+    }
+  
+    .question-navigation {
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+  
+    .btn-question-back,
+    .btn-question-next {
+      width: 100%;
+      justify-content: center;
+      padding: 0.875rem 1.25rem;
+    }
+  
+    .btn-question-next {
+      margin-left: 0;
+    }
+  
+    /* Thank You Screen */
+    .thank-you-screen {
+      padding: 1.5rem;
+    }
+  
+    .thank-you-content {
+      padding: 2rem 1.5rem;
+    }
+  
+    .thank-you-content h1 {
+      font-size: 2rem;
+    }
+  
+    .thank-you-subtitle {
+      font-size: 1.125rem;
+    }
+  
+    .thank-you-message {
+      font-size: 1rem;
+    }
+  }
+  
+  .btn-voltar-site {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.875rem 2.5rem;
+    background-color: #2563eb; /* Mesmo azul do .nav-icon.active */
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  
+    /* Sombra suave para dar profundidade */
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2),
+                0 2px 4px -1px rgba(37, 99, 235, 0.1);
+  }
+  
+  .btn-voltar-site:hover {
+    background-color: #1d4ed8; /* Azul levemente mais escuro */
+    transform: translateY(-2px); /* Efeito de "levantar" */
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3),
+                0 4px 6px -2px rgba(37, 99, 235, 0.15);
+  }
+  
+  .btn-voltar-site:active {
+    background-color: #1e40af;
+    transform: translateY(0); /* Volta ao lugar ao clicar */
+    box-shadow: none;
+  }
+  
+  /* Small Mobile */
+  @media (max-width: 480px) {
+    body {
+      padding: 0.5rem;
+    }
+  
+    .form-wrapper {
+      padding: 1rem 0.75rem;
+    }
+  
+    .nav-icon {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.75rem;
+    }
+  
+    .nav-label {
+      max-width: 120px;
+    }
+  
+    .nav-label-title {
+      font-size: 0.6875rem;
+    }
+  
+    .nav-label-status {
+      font-size: 0.5625rem;
+    }
+  
+    /* CORREÇÃO:
+      Centraliza o label do meio em telas muito pequenas
+      para evitar que ele "caia" para a linha seguinte.
+    */
+    .nav-label:nth-child(2) {
+      text-align: center;
+    }
+  
+    .question-content {
+      padding: 1rem 0.75rem;
+    }
+  
+    .question-text {
+      font-size: 1rem;
+    }
+  
+    .thank-you-content h1 {
+      font-size: 1.75rem;
+    }
+  
+    .thank-you-subtitle {
+      font-size: 1rem;
+    }
+  
+    .thank-you-message {
+      font-size: 0.9375rem;
+    }
+  
+    .btn-voltar-site {
+      width: 100%; /* Botão ocupa largura total no celular */
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-rodape {
+      max-width: 150px;
+    }
+  }
+  
+  
