@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\FormularioHackthon;
 use App\Http\Controllers\HacktonMentores;
 use App\Http\Controllers\MentorAuthController;
+use App\Http\Controllers\AlunoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,18 +22,20 @@ Route::get('/hackhealth', [FormularioHackthon::class, 'index'])->name('hackathon
 
 
 Route::get('/inscricao', function () {
-
     $limiteVagas = 300;
-
-
     $totalInscritos = FormSubmission::count();
-
-
     $vagasEsgotadas = $totalInscritos >= $limiteVagas;
-
 
     return view('inscricao', compact('vagasEsgotadas'));
 })->name('inscricao');
+
+Route::get('/admin/alunos/export', [AlunoController::class, 'export'])->name('aluno.export');
+
+Route::get('/admin/alunos', [AlunoController::class, 'index'])->name('aluno.dashboard');
+
+Route::get('/inscricao-aluno', [AlunoController::class, 'create'])->name('aluno.create');
+
+Route::post('/inscricao-aluno', [AlunoController::class, 'store'])->name('aluno.store');
 
 Route::get('hackathon/mentor/cadastrar', [HacktonMentores::class, 'create'])->name('hackathon.mentor.create');
 
@@ -54,7 +57,6 @@ Route::get('/admin/logout', [MentorAuthController::class, 'logout'])
 Route::middleware(['auth:mentor'])->prefix('admin')->group(function () {
 
     // Dashboard Principal
-    // Carrega a view: resources/views/mentor/dashboard.blade.php
     Route::get('/', function () {
         return view('mentor.dashboard');
     })->name('mentor.dashboard');
