@@ -898,7 +898,7 @@
             <div class="container">
                 <a href="/" class="logo-text"><img src="{{ asset('img/logos/2.png') }}" alt=""></a>
                 <nav class="nav-links">
-                    <a href="#" class="nav-link">Entrar</a>
+                    <a href="{{ route('login.unificado') }}" class="nav-link">Entrar</a>
                     <a href="/hackhealth" class="nav-button">HackHealth</a>
                 </nav>
             </div>
@@ -1019,7 +1019,7 @@
             </div>
         </section>
 
-        
+
 
         <section class="faq-section" id="faq">
             <div class="container">

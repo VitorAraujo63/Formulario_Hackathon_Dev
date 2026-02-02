@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscrições Encerradas - DevMenthors</title>
+    <title>Inscrições Indisponíveis - DevMenthors</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('img/logos/1.png') }}">
+
 
     <style>
         /* --- Reset e Estilos Globais --- */
@@ -42,14 +44,14 @@
             flex-direction: column;
         }
 
-        /* REINCORPORANDO AS IMAGENS DAS ONDAS */
+        /* ONDAS */
         .wave {
             position: absolute;
             top: 0;
             z-index: 1;
-            height: 76%; /* Ocupa a altura total do hero */
-            width: auto; /* Mantém a proporção da imagem */
-            object-fit: contain; /* Ajusta a imagem dentro do contêiner sem cortar */
+            height: 76%;
+            width: auto;
+            object-fit: contain;
         }
 
         .wave-left {
@@ -73,15 +75,13 @@
 
         .navbar .container {
             display: flex;
-            /* Modificado para centralizar o logo quando não há links */
             justify-content: center;
             align-items: center;
         }
 
-        /* Centraliza o logo em telas maiores também */
         @media (min-width: 769px) {
             .navbar .container {
-                justify-content: flex-start; /* Ou 'center' se preferir */
+                justify-content: flex-start;
             }
         }
 
@@ -92,11 +92,9 @@
         }
 
         .logo-text img {
-            height: 90px; /* Defina a altura desejada para o seu logo */
+            height: 90px;
             width: auto;
         }
-
-        /* Removido .nav-links e .nav-button pois não são necessários aqui */
 
         /* --- Conteúdo Hero --- */
         .hero-content {
@@ -125,62 +123,79 @@
 
         .hero-content p {
             font-size: 18px;
-            max-width: 600px;
+            max-width: 700px; /* Aumentado levemente para caber o novo texto */
             margin-bottom: 35px;
             line-height: 1.7;
             color: #555;
         }
 
-        /* Novo estilo para a mensagem de redirecionamento */
-        .redirect-message {
-            font-size: 1rem;
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-            margin-top: -1.5rem;
+        /* --- NOVOS ESTILOS DE BOTÕES --- */
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
         }
 
         .cta-button {
-            background-color: #2563EB;
-            color: #ffffff;
             text-decoration: none;
             padding: 12px 24px;
             border-radius: 10px;
             font-size: 14px;
             font-weight: 700;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        /* Botão Principal (HackHealth) - Azul Destacado */
+        .btn-primary {
+            background-color: #2563EB;
+            color: #ffffff;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            border: 1px solid transparent;
         }
 
-        .cta-button:hover {
+        .btn-primary:hover {
             background-color: #1D4ED8;
+            transform: translateY(-2px);
         }
 
-        /* --- ESTILOS RESPONSIVOS (Simplificados do seu CSS) --- */
+        /* Botão Secundário (Home) - Branco/Discreto */
+        .btn-secondary {
+            background-color: transparent;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+        }
 
-        /* Tablets e desktops menores */
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+            color: #111827;
+            border-color: #d1d5db;
+        }
+
+        /* --- ESTILOS RESPONSIVOS --- */
         @media (max-width: 992px) {
-            .wave { /* Onda do Hero */
+            .wave {
                 height: 80%;
                 transform: translateY(30%);
             }
         }
 
-        /* Tablets na vertical e celulares */
         @media (max-width: 768px) {
             .hero {
                 height: auto;
-                min-height: 100vh; /* Garante que ocupe a tela inteira */
+                min-height: 100vh;
                 padding-bottom: 60px;
             }
 
-            .wave { /* Onda do Hero */
-                display: none;
-            }
+            .wave { display: none; }
 
             .navbar .container {
                 flex-direction: column;
                 gap: 15px;
-                justify-content: center; /* Centraliza o logo */
+                justify-content: center;
             }
 
             .hero-content {
@@ -200,23 +215,22 @@
                 max-width: 90%;
                 margin-bottom: 25px;
             }
+
+            .buttons-container {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
         }
 
-        /* Celulares menores */
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 32px;
-            }
-            .hero-content p {
-                font-size: 14px;
-            }
-            .cta-button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-            .logo-text img {
-                height: 60px; /* Altura um pouco menor no mobile */
-            }
+            .hero-content h1 { font-size: 32px; }
+            .hero-content p { font-size: 14px; }
+            .logo-text img { height: 60px; }
         }
 
     </style>
@@ -229,30 +243,26 @@
 
         <header class="navbar">
             <div class="container">
-                <a href="/" class="logo-text"><img src="{{ asset('img/parceiros/5.png') }}" alt="DevMenthors Logo"></a>
-                <!-- Links de navegação removidos desta página -->
+                <a href="/" class="logo-text"><img src="{{ asset('img/logos/2.png') }}" alt="DevMenthors Logo"></a>
             </div>
         </header>
 
         <div class="hero-content">
             <h1>
-                <span class="text-blue">Inscrições</span> Encerradas
+                Inscrições <span class="text-blue">indisponíveis</span> no momento
             </h1>
-            <p>No momento, as inscrições não estão abertas. Fique de olho em nossas redes sociais para o anúncio de futuros eventos!</p>
 
-            <p class="redirect-message">Você será redirecionado para a página principal em 10 segundos...</p>
+            <p>
+                As inscrições para o Volta às Aulas não estão disponíveis no momento, mas aproveite a oportunidade e venha participar do mais novo evento do DevMenthors, o HackHealth.
+            </p>
 
-            <a href="/" class="cta-button">Voltar para a Home</a>
+            <div class="buttons-container">
+                <a href="/" class="cta-button btn-secondary">Voltar para a Home</a>
+
+                <a href="{{ route('hackathon') }}" class="cta-button btn-primary">Conhecer o HackHealth</a>
+            </div>
         </div>
     </section>
 
-    <!-- SCRIPT DE REDIRECIONAMENTO -->
-    <script>
-        setTimeout(function() {
-            // Redireciona o usuário para a raiz do site (/)
-            window.location.href = '/';
-        }, 10000); // 5000 milissegundos = 5 segundos
-    </script>
-
-</body>
+    </body>
 </html>

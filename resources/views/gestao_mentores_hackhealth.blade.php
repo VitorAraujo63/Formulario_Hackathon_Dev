@@ -174,7 +174,7 @@
         </div>
         <div class="header-actions">
             <button class="btn btn-outline">
-                <a href="{{ route('hackathon.mentor.inscricoes') }}" class="btn btn-success" style="background:#222">
+                <a href="{{ route('admin.hackathon.inscricoes') }}" class="btn btn-success" style="background:#222">
                 Alunos Inscritos
                 </a>
             </button>
@@ -182,7 +182,7 @@
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                 Importar Excel
             </button>
-            <a href="{{ route('hackathon.mentor.export') }}" class="btn btn-success">
+            <a href="{{ route('admin.mentores.export') }}" class="btn btn-success">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 Exportar Excel
             </a>
@@ -192,7 +192,7 @@
     {{-- Seção de Upload (Toggle) --}}
     <div id="uploadSection" class="upload-section">
         <h3 style="margin-bottom: 1rem; font-size: 1rem;">Importar Mentores em Massa</h3>
-        <form action="{{ route('hackathon.mentor.import') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+        <form action="{{ route('admin.mentores.import') }}" method="POST" enctype="multipart/form-data" class="upload-form">
             @csrf
             <input type="file" name="arquivo_excel" required accept=".xlsx, .xls">
             <button type="submit" class="btn btn-primary">Enviar Arquivo</button>

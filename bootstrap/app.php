@@ -16,9 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // Add this custom redirect logic
         $middleware->redirectGuestsTo(function (Request $request) {
             if ($request->is('admin/*')) {
-                return route('mentor.login');
+                return route('login.unificado');
             }
-            return route('mentor.login'); // Fallback for standard users
+            return route('login.unificado'); // Fallback for standard users
         });
     })
     ->withExceptions(function (Exceptions $exceptions) {
