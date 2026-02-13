@@ -1,5 +1,60 @@
-const estados = [
+function irParaEcossistema() {
+  sessionStorage.setItem('dados_inscricao_hackathon', JSON.stringify(formState.formData));
+  window.location.href = "/ecossistema";
+}
 
+function verificarMaioridade() {
+  const inputNasc = document.getElementById('nascimento');
+  const secao = document.getElementById('secao-responsavel');
+  const camposInputs = secao.querySelectorAll('input');
+
+  if (!inputNasc.value) return;
+
+  const dataNasc = new Date(inputNasc.value);
+  const hoje = new Date();
+  let idade = hoje.getFullYear() - dataNasc.getFullYear();
+  const m = hoje.getMonth() - dataNasc.getMonth();
+  if (m < 0 || (m === 0 && hoje.getDate() < dataNasc.getDate())) idade--;
+
+  if (idade < 18) {
+      secao.style.display = 'block';
+      camposInputs.forEach(c => c.required = true);
+
+      if (!tabs[0].requiredFields.includes("nome_responsavel")) {
+          tabs[0].requiredFields.push("nome_responsavel", "telefone_responsavel");
+      }
+  } else {
+      secao.style.display = 'none';
+      camposInputs.forEach(c => { 
+          c.required = false; 
+          c.value = ''; 
+          formState.formData[c.name] = ''; 
+      });
+
+      tabs[0].requiredFields = tabs[0].requiredFields.filter(f => f !== "nome_responsavel" && f !== "telefone_responsavel");
+  }
+  updateNextButton(); 
+}
+
+function mascaraTelResponsavel(i) {
+  i.setAttribute("maxlength", "15");
+  let v = i.value.replace(/\D/g, "");
+  v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+  v = v.replace(/(\d{5})(\d)/, "$1-$2");
+  i.value = v;
+}
+
+function mascaraCPF(i) {
+  let v = i.value;
+  v = v.replace(/\D/g, "");
+  if (v.length > 11) v = v.substring(0, 11);
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  i.value = v;
+}
+
+const estados = [
 ];
 
 const telefoneInput = document.getElementById("telefone");
@@ -250,6 +305,7 @@ const formState = {
   formData: {
     nome: "",
     email: "",
+    cpf: "",
     telefone: "",
     nascimento: "",
     sexo: "",
@@ -258,6 +314,8 @@ const formState = {
     curso: "",
     linkedin: "",
     sobre: "",
+    nome_responsavel: "", 
+    telefone_responsavel: "",
   },
 }
 
@@ -265,7 +323,7 @@ const tabs = [
   {
     id: "personal",
     title: "Informações pessoais",
-    requiredFields: ["nome", "email", "telefone", "nascimento", "sexo", "estado", "cidade", "curso"],
+    requiredFields: ["nome", "email", "cpf", "telefone", "nascimento", "sexo", "estado", "cidade"],
   },
   { id: "skills", title: "Área de interesse", requiredFields: [] },
   { id: "questions", title: "Perguntas técnicas", requiredFields: [] },
@@ -573,12 +631,7 @@ btnNext.addEventListener("click", async (e) => {
   const currentIndex = tabs.findIndex((t) => t.id === formState.activeTab)
 
   if (formState.activeTab === "questions" && formState.userAnswers.length === 6) {
-
     e.preventDefault();
-    // Finalizar formulário e mostrar tela de agradecimento
-    console.log("Formulário enviado:", formState.formData)
-    console.log("Área selecionada:", formState.selectedArea)
-    console.log("Respostas:", formState.userAnswers)
 
     const payload = {
       formData: formState.formData,
@@ -586,17 +639,24 @@ btnNext.addEventListener("click", async (e) => {
       userAnswers: formState.userAnswers,
     };
 
-    console.log("Enviando payload:", payload);
+    // Desabilitar o botão para evitar múltiplos cliques
+    btnNext.disabled = true;
+    btnNextText.textContent = "Enviando...";
 
     try {
       const response = await axios.post(API_SUBMIT_URL, payload);
-      console.log(response.data.message);
-      thankYouScreen.style.display = "flex";
-      mainContainer.style.display = "none";
-      return;
-    } catch (error) {
+      sessionStorage.setItem('dados_inscricao_hackathon', JSON.stringify(formState.formData));
+      if (typeof mainContainer !== 'undefined') mainContainer.style.display = 'none';
+      if (typeof thankYouScreen !== 'undefined') {
+          thankYouScreen.style.display = 'flex';
+          if (typeof nextStep === 'function') nextStep(1);
+      }
+  
+  } catch (error) {
+      btnNext.disabled = false;
+      btnNextText.textContent = "Finalizar";
       console.error("Erro ao enviar formulário:", error);
-      console.log("ERROR MESSAGE:", error.response?.data || error.message);
+      
       if (error.response && error.response.data && error.response.data.errors) {
         alert("Erro de validação: " + JSON.stringify(error.response.data.errors));
       } else if (error.response && error.response.data && error.response.data.error) {

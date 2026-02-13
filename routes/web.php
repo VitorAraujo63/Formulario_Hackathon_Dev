@@ -18,6 +18,7 @@ use App\Http\Controllers\FotoController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorDashboardController;
 use App\Models\FormSubmission;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,8 @@ Route::get('/inscricao', function () {
 // Cadastro de Novos Alunos (Público)
 Route::get('/inscricao-aluno', [AlunoController::class, 'create'])->name('aluno.create');
 Route::post('/inscricao-aluno', [AlunoController::class, 'store'])->name('aluno.store');
+
+Route::post('/inscricao-aluno-automatica', [AlunoController::class, 'registerFromEcosystem'])->name('aluno.register_ecosystem');
 
 // Cadastro de Mentores (Público - Se for self-service)
 Route::get('hackathon/mentor/cadastrar', [HacktonMentores::class, 'create'])->name('hackathon.mentor.create');
@@ -95,7 +98,7 @@ Route::middleware(['auth:mentor'])->prefix('admin')->group(function () {
 
 
     // --- Gestão de Alunos ---
-    Route::prefix('alunos')->middleware('can:manage_alunos')->group(function () {
+    Route::prefix('alunos')->group(function () {
         Route::get('/', [AlunoController::class, 'index'])->name('admin.alunos.index');
         Route::get('/export', [AlunoController::class, 'export'])->name('admin.alunos.export');
         Route::get('/template', [AlunoController::class, 'downloadTemplate'])->name('admin.alunos.template');
@@ -186,5 +189,19 @@ Route::prefix('aluno')->name('aluno.')->middleware('auth:aluno')->group(function
     Route::post('/avisos/{id}/like', [AlunoAvisoController::class, 'toggleLike'])->name('avisos.like');
 });
 
-Route::middleware(['auth:aluno'])->get('/presenca/registrar/{chamada_id}', [ChamadaController::class, 'registrarPresenca'])
-    ->name('aluno.presenca.registrar');
+    Route::middleware(['auth:aluno'])->get('/presenca/registrar/{chamada_id}', [ChamadaController::class, 'registrarPresenca'])
+        ->name('aluno.presenca.registrar');
+
+    // Rota do Ecossitema
+    Route::get('/ecossistema', function () {
+        return view('ecossistema');
+    })->name('ecossistema');
+
+
+Route::get('/descobrir-grupos', function () {
+    $response = Http::withHeaders([
+        'apikey' => env('WHATSAPP_INSTANCE_TOKEN')
+    ])->get(env('WHATSAPP_API_URL') . "/group/fetchAllGroups/" . env('WHATSAPP_INSTANCE_NAME'));
+
+    return $response->json();
+});

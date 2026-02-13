@@ -12,6 +12,7 @@ class FormSubmission extends Model
     protected $fillable = [
         'nome',
         'email',
+        'cpf', 
         'telefone',
         'nascimento',
         'sexo',
@@ -20,16 +21,17 @@ class FormSubmission extends Model
         'curso',
         'linkedin',
         'sobre',
+        'nome_responsavel', 
+        'telefone_responsavel',
         'selected_area',
-        'user_answers',     // Importante estar aqui
+        'user_answers',
         'score_total',
         'score_facil',
-        'score_medio',      // Importante: verificar se no banco é score_medio ou score_media
+        'score_medio',
         'score_dificil',
         'calculated_level',
     ];
 
-    // Transforma automaticamente o Array em JSON ao salvar e JSON em Array ao ler
     protected $casts = [
         'user_answers' => 'array',
         'nascimento' => 'date',

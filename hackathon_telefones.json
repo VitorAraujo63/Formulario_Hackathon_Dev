@@ -21,7 +21,7 @@
           "fields": [
             {
               "fieldId": "telefone",
-              "fieldValue": "={{ $json.telefone }}"
+              "fieldValue": "={{ $json.formData.telefone }}"
             }
           ]
         }

@@ -130,14 +130,14 @@
             <p class="header-stats">Total de inscritos: <strong>{{ $submissions->count() }}</strong></p>
         </div>
         <div class="header-actions">
-            <a href="{{ route('hackathon.mentor.index') }}" class="btn btn-success" style="background:#222">
+            <a href="{{ route('admin.hackathon.inscricoes') }}" class="btn btn-success" style="background:#222">
                 Mentores
             </a>
         </div>
         <div class="header-actions">
-            <a href="{{ route('hackathon.mentor.export') }}" class="btn btn-success">
+            <a href="{{ route('admin.hackathon.export') }}" class="btn btn-success">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                Baixar Excel (.xlsx)
+                Baixar Excel
             </a>
         </div>
     </div>

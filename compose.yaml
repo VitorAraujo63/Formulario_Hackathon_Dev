@@ -4,7 +4,7 @@ services:
             context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
             args:
-                WWWGROUP: '${WWWGROUP}'
+                WWWGROUP: '${WWWGROUP:-1000}'
         image: 'sail-8.4/app'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
@@ -12,7 +12,7 @@ services:
             - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
-            WWWUSER: '${WWWUSER}'
+            WWWUSER: '${WWWUSER:-1000}'
             LARAVEL_SAIL: 1
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - mysql
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -34,23 +35,42 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
-            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS}'
+            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS:-}'
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
         healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
+
+    evolution_api:
+        image: 'atendai/evolution-api:latest'
+        container_name: evolution_api
+        ports:
+            - '8080:8080'
+        environment:
+            - AUTH_API_KEY=meu_token_secreto_123
+            - DATABASE_ENABLED=true
+            - DATABASE_TYPE=mysql
+            - DATABASE_CONNECTION_HOST=mysql
+            - DATABASE_CONNECTION_PORT=3306
+            - DATABASE_CONNECTION_USER=${DB_USERNAME}
+            - DATABASE_CONNECTION_PASSWORD=${DB_PASSWORD}
+            - DATABASE_CONNECTION_DATABASE=evolution_api
+            - DATABASE_SAVE_DATA_INSTANCE=true
+        networks:
+            - sail
+        depends_on:
+            mysql:
+                condition: service_healthy
+
 networks:
     sail:
         driver: bridge
+
 volumes:
     sail-mysql:
         driver: local

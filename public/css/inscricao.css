@@ -7,16 +7,11 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* CORREÇÃO:
-    Combinei as propriedades de background.
-    Definimos uma cor de fundo branca, e então
-    adicionamos a imagem por cima.
-  */
   background-color: #ffffff;
   background-image: url('../img/Component6.png');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center; /* Garante que a imagem esteja centralizada */
+  background-position: center;
 
   min-height: 100vh;
   padding: 2rem 1rem;
@@ -254,7 +249,8 @@ body {
 }
 
 .form-row .form-group.small {
-  flex: 0 0 250px; /* tamanho fixo */
+  flex: 0 0 250px;
+  /* tamanho fixo */
 }
 
 
@@ -353,7 +349,7 @@ body {
   cursor: pointer;
 }
 
-.area-option input[type="radio"]:checked ~ .area-option-content {
+.area-option input[type="radio"]:checked~.area-option-content {
   color: #2563eb;
 }
 
@@ -547,6 +543,31 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative wave images for thank you screen */
+.img-azul-thankyou {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24rem;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.img-preto-thankyou {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 24rem;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .thank-you-content {
@@ -845,6 +866,12 @@ body {
   .thank-you-message {
     font-size: 1rem;
   }
+
+  /* Adjust decorative images in thank you screen for mobile */
+  .img-azul-thankyou,
+  .img-preto-thankyou {
+    height: 16rem;
+  }
 }
 
 /* =========================================
@@ -855,7 +882,8 @@ body {
   display: inline-block;
   margin-top: 2rem;
   padding: 0.875rem 2.5rem;
-  background-color: #2563eb; /* Mesmo azul do .nav-icon.active */
+  background-color: #2563eb;
+  /* Mesmo azul do .nav-icon.active */
   color: white;
   font-weight: 600;
   font-size: 1rem;
@@ -867,19 +895,22 @@ body {
 
   /* Sombra suave para dar profundidade */
   box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2),
-              0 2px 4px -1px rgba(37, 99, 235, 0.1);
+    0 2px 4px -1px rgba(37, 99, 235, 0.1);
 }
 
 .btn-voltar-site:hover {
-  background-color: #1d4ed8; /* Azul levemente mais escuro */
-  transform: translateY(-2px); /* Efeito de "levantar" */
+  background-color: #1d4ed8;
+  /* Azul levemente mais escuro */
+  transform: translateY(-2px);
+  /* Efeito de "levantar" */
   box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3),
-              0 4px 6px -2px rgba(37, 99, 235, 0.15);
+    0 4px 6px -2px rgba(37, 99, 235, 0.15);
 }
 
 .btn-voltar-site:active {
   background-color: #1e40af;
-  transform: translateY(0); /* Volta ao lugar ao clicar */
+  transform: translateY(0);
+  /* Volta ao lugar ao clicar */
   box-shadow: none;
 }
 
@@ -942,9 +973,9 @@ body {
   }
 
   .btn-voltar-site {
-    width: 100%; /* Botão ocupa largura total no celular */
+    width: 100%;
+    /* Botão ocupa largura total no celular */
     text-align: center;
     padding: 1rem;
   }
 }
-

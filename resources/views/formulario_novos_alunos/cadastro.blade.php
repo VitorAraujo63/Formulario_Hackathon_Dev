@@ -26,7 +26,6 @@
             position: relative;
         }
 
-        /* --- CABEÇALHO --- */
         .header-section {
             text-align: center; margin-bottom: 40px; padding-bottom: 20px;
             border-bottom: 2px solid #f0f0f0;
@@ -35,7 +34,6 @@
         .header-title { font-size: 2rem; font-weight: 800; color: #1a202c; margin: 0; }
         .header-subtitle { color: #64748b; font-size: 1rem; margin-top: 5px; }
 
-        /* --- SEÇÕES --- */
         .section-block { margin-bottom: 30px; }
         .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
         .section-number {
@@ -44,8 +42,6 @@
             font-weight: bold; font-size: 0.9rem;
         }
         .section-title { font-size: 1.2rem; font-weight: 700; color: #334155; }
-
-        /* --- INPUTS --- */
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         @media (min-width: 768px) {
             .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -61,7 +57,6 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
-        /* --- BOTÕES --- */
         .btn-submit {
             width: 100%; padding: 15px; background: #2563eb; color: white;
             border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold;
@@ -80,7 +75,6 @@
         }
         input[type="radio"] { display: none; }
 
-        /* --- SUCESSO --- */
         .hidden { display: none; }
         .overlay-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
@@ -199,6 +193,20 @@
                                 <label for="email_aluno">E-mail do Aluno</label>
                                 <input type="email" id="email_aluno" name="email_aluno" placeholder="aluno@email.com" maxlength="100">
                             </div>
+
+                            <div>
+                                <label for="cpf">CPF do Aluno</label>
+                                {{-- O maxlength 14 permite os 11 números + 2 pontos + 1 traço --}}
+                                <input type="text" 
+                                    id="cpf" 
+                                    name="cpf" 
+                                    required 
+                                    placeholder="000.000.000-00" 
+                                    maxlength="14" 
+                                    oninput="mascaraCPF(this)"
+                                    inputmode="numeric">
+                            </div>
+
                             <div>
                                 <label for="telefone_aluno">WhatsApp do Aluno</label>
                                 <input type="tel" id="telefone_aluno" name="telefone_aluno" placeholder="(00) 00000-0000"
@@ -299,7 +307,7 @@
                 }
             }
 
-            function mascaraTelefone(input) {
+            function mascaraTelefone(input) {   
                 let v = input.value;
                 v = v.replace(/\D/g, "");           
                 v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); 
@@ -309,6 +317,20 @@
 
             function validarTexto(input) {
                 input.value = input.value.replace(/[0-9]/g, "");
+            }
+
+            function mascaraCPF(i) {
+                let v = i.value.replace(/\D/g, "");
+
+                if (v.length > 11) {
+                    v = v.substring(0, 11);
+                }
+
+                v = v.replace(/(\d{3})(\d)/, "$1.$2");      
+                v = v.replace(/(\d{3})(\d)/, "$1.$2");      
+                v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); 
+
+                i.value = v;
             }
         </script>
     @endif
