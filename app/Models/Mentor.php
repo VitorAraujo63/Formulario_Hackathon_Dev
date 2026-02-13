@@ -20,6 +20,7 @@ class Mentor extends Authenticatable
         'password',
         'funcao',
         'status',
+        'foto',
     ];
 
     protected $hidden = [

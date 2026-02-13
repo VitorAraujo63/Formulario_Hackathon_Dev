@@ -23,7 +23,13 @@ class AdminMentorController extends Controller
         // Busca todas as permissões para exibir no modal
         $todasPermissoes = Permission::all()->groupBy('group');
 
-        return view('mentor.admin.index', compact('mentores', 'todasPermissoes'));
+        // Busca os logs do sistema com o relacionamento do mentor
+        $logs = SystemLog::with('mentor')
+            ->orderBy('created_at', 'desc')
+            ->limit(50)
+            ->get();
+
+        return view('mentor.admin.index', compact('mentores', 'todasPermissoes', 'logs'));
     }
 
     /**

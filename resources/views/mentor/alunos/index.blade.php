@@ -65,9 +65,17 @@
                     <tr class="hover:bg-slate-50/50 transition group">
                         <td class="p-5">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
-                                    {{ substr($aluno->nome_completo, 0, 2) }}
-                                </div>
+                                {{-- Foto do Aluno via Proxy ou Avatar com iniciais --}}
+                                @if($aluno->foto)
+                                    <img src="{{ route('aluno.foto.proxy', basename($aluno->foto)) }}"
+                                         class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm"
+                                         onerror="this.src='http://ui-avatars.com/api/?name={{ urlencode($aluno->nome_completo) }}&background=random'"
+                                         alt="Foto de {{ $aluno->nome_completo }}">
+                                @else
+                                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm border border-blue-200">
+                                        {{ substr($aluno->nome_completo, 0, 2) }}
+                                    </div>
+                                @endif
                                 <div>
                                     <div class="font-bold text-slate-800">{{ $aluno->nome_completo }}</div>
                                     <div class="text-xs text-slate-500">

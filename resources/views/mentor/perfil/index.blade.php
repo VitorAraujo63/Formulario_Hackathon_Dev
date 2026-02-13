@@ -26,8 +26,15 @@
                     @endphp
 
                     {{-- Foto --}}
-                    <img id="preview" src="{{ $user->foto_url }}"
-                        class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-[6px] border-white shadow-xl bg-white relative z-10">
+                    @if($user->foto)
+                        <img id="preview" src="{{ route('mentor.foto.proxy', basename($user->foto)) }}"
+                            class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-[6px] border-white shadow-xl bg-white relative z-10">
+                    @else
+                        <div id="preview-container" class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-2xl border-[6px] border-white shadow-xl relative z-10">
+                            {{ substr($user->nome, 0, 2) }}
+                        </div>
+                        <img id="preview" class="hidden w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-[6px] border-white shadow-xl bg-white relative z-10">
+                    @endif
 
                     <label class="absolute inset-0 z-20 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-all duration-300 backdrop-blur-sm border-[6px] border-transparent">
                         <i class="fas fa-camera text-white text-xl md:text-2xl drop-shadow-md"></i>
@@ -78,7 +85,18 @@
 <script>
     function previewImage(event) {
         const reader = new FileReader();
-        reader.onload = () => document.getElementById('preview').src = reader.result;
+        const preview = document.getElementById('preview');
+        const container = document.getElementById('preview-container');
+        
+        reader.onload = () => {
+            // Esconde o container de iniciais se existir
+            if (container) {
+                container.classList.add('hidden');
+            }
+            // Mostra a imagem e define o src
+            preview.classList.remove('hidden');
+            preview.src = reader.result;
+        };
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>

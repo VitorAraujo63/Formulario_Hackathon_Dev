@@ -36,11 +36,17 @@
                 @foreach($mentores as $m)
                 <tr class="hover:bg-gray-50 transition">
                     <td class="p-4 flex items-center gap-3">
-                        {{-- Foto do Mentor via SeaweedFS ou Avatar padrão via API --}}
-                        <img src="{{ $m->foto_url }}"
-                             class="w-10 h-10 rounded-full object-cover border border-gray-200 shadow-sm"
-                             onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($m->nome) }}&background=random'"
-                             alt="Foto de {{ $m->nome }}">
+                        {{-- Foto do Mentor via Proxy ou Avatar padrão --}}
+                        @if($m->foto)
+                            <img src="{{ route('mentor.foto.proxy', basename($m->foto)) }}"
+                                 class="w-10 h-10 rounded-full object-cover border border-gray-200 shadow-sm"
+                                 onerror="this.src='http://ui-avatars.com/api/?name={{ urlencode($m->nome) }}&background=random'"
+                                 alt="Foto de {{ $m->nome }}">
+                        @else
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200 text-xs">
+                                {{ substr($m->nome, 0, 2) }}
+                            </div>
+                        @endif
 
                         <div>
                             <p class="font-bold text-gray-800">{{ $m->nome }}</p>
